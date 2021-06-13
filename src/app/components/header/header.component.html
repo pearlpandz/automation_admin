@@ -1,0 +1,18 @@
+<header>
+    <div class="container-fluid">
+        <div>
+            <img src="assets/images/logo.png" alt="">
+            <p-megaMenu [model]="items"></p-megaMenu>
+        </div>
+        <div>
+            <a routerLink="/profile">
+                <span>{{name | titlecase}}</span>
+                <!-- <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnMDee2vjFJEskStXPWwXv8y3uQdL9kJsa_A&usqp=CAU"
+                    alt=""> -->
+            </a>
+            <a (click)="auth.logout()" class="pointer">
+                <i class="pi pi-sign-out"></i>
+            </a>
+        </div>
+    </div>
+</header>

@@ -1,0 +1,40 @@
+<div class="p-grid login-page">
+    <div class="p-col-5 padding-zero login-img">
+        <img src="./assets/images/login.png" alt="TLCA" />
+        <div class="login-contents">
+            <img src="./assets/images/logo.png" alt="TLCA" class="logo" />
+            <h4>Few Clicks away from your login</h4>
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sapiente nihil illum harum, minus, quo earum
+                tempora a deleniti ullam officiis facilis.</p>
+        </div>
+    </div>
+    <div class="p-col-7 padding-zero flex align-center">
+        <div class="login-form">
+            <h1>Login</h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, dignissimos eveniet repellat beatae magnam
+                ipsa molestias asperiores consequatur debitis.</p>
+
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                <div class="p-fluid">
+                    <div class="p-field">
+                        <label for="email">Username</label>
+                        <input id="email" formControlName="email" type="email" pInputText>
+                    </div>
+                    <div class="p-field">
+                        <label for="password">Password</label>
+                        <input id="password" formControlName="password" type="password" pInputText>
+                    </div>
+                    <!-- <div class="p-field">
+                        <label for="type">Type</label>
+                        <p-dropdown inputId="type" [options]="userTypes" placeholder="Select any type"
+                            formControlName="type"></p-dropdown>
+                    </div> -->
+                    <br />
+                    <p-button id="submit" label="Submit" type="submit" [disabled]="!loginForm.valid" iconPos="right"
+                        [icon]="isCompleted ? 'pi pi-check' : isProgress ? 'pi pi-spin pi-spinner' : '' "></p-button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

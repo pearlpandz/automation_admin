@@ -1,0 +1,530 @@
+/* You can add global styles to this file, and also import other style files */
+@import "assets/css/align.scss";
+@import "assets/css/status.scss";
+
+* {
+  box-sizing: border-box;
+  font-family: "Open Sans", sans-serif;
+}
+
+:root {
+  --primary-color: #1a5ed6;
+  --red-color: red;
+  --green-color: green;
+}
+
+*:focus {
+  outline: none !important;
+  box-shadow: unset !important;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h6 {
+  margin: 0;
+}
+
+.text-capital {
+  text-transform: capitalize;
+}
+
+.text-lower {
+  text-transform: lowercase;
+}
+
+.text-upper {
+  text-transform: uppercase;
+}
+
+.no-border {
+  border: 0 !important;
+}
+
+.flex-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.flex {
+  display: flex;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
+.p-card .p-card-content {
+  padding: 0;
+}
+
+.table-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.p-progressbar {
+  height: 5px;
+}
+
+.p-inputtext {
+  max-width: 100%;
+}
+
+textarea {
+  border-color: #ced4da;
+}
+
+textarea:focus,
+textarea:hover {
+  border-color: #2196f3;
+}
+
+// padding
+.padding-zero {
+  padding: 0;
+}
+
+.padding-right-zero {
+  padding-right: 0;
+}
+
+.p-20 {
+  padding: 20px;
+}
+
+.p-10 {
+  padding: 10px;
+}
+
+// margin
+.margin-zero {
+  margin: 0;
+}
+
+.m-10 {
+  margin: 10px;
+}
+
+.mr-5 {
+  margin-right: 5px !important;
+}
+
+.mr-10 {
+  margin-right: 10px !important;
+}
+
+.ml-5 {
+  margin-left: 5px !important;
+}
+
+.ml-10 {
+  margin-left: 10px !important;
+}
+
+.mb-0 {
+  margin-bottom: 0 !important;
+}
+
+.mb-50 {
+  margin-bottom: 50px;
+}
+
+.mt-5 {
+  margin-top: 5px;
+}
+
+.mt-20 {
+  margin-top: 20px;
+}
+
+.mb-20 {
+  margin-bottom: 20px;
+}
+
+.error {
+  color: var(--red-color);
+}
+
+.error-msg {
+  color: var(--red-color);
+  font-size: 13px;
+}
+
+// data table overwrite css
+.p-datatable table {
+  table-layout: auto !important;
+}
+
+.p-datatable-hoverable-rows .p-selectable-row {
+  cursor: default;
+}
+
+.pointer {
+  cursor: pointer !important;
+}
+
+.p-datatable-wrapper {
+  overflow-x: auto;
+}
+
+.p-datatable .p-datatable-thead > tr > th {
+  white-space: nowrap;
+  word-break: keep-all;
+  padding: 10px !important;
+}
+
+.p-datatable .p-datatable-tbody > tr > td {
+  padding: 10px !important;
+}
+
+.p-datatable.p-datatable-hoverable-rows .p-datatable-tbody > tr:not(.p-highlight):hover {
+  background: transparent !important;
+}
+
+// .p-datatable .p-datatable-tbody > tr > td {
+//   border-width: 1px !important;
+// }
+
+.top-form {
+  border-bottom: 1px solid #d4d4d4;
+  padding: 16px 16px 0 16px;
+  // background-color: rgb(0 0 0 / 0.08);
+}
+
+// sidebar
+.p-sidebar-right {
+  width: 50% !important;
+  padding: 0 !important;
+}
+
+.p-button.my-btn {
+  min-width: 150px;
+}
+
+.p-button.my-btn.red {
+  background: var(--red-color);
+  border-color: var(--red-color);
+  color: #ffffff;
+}
+
+.p-button.my-btn.green {
+  background: var(--green-color);
+  border-color: var(--green-color);
+  color: #ffffff;
+}
+
+.p-button[type="submit"] {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+  color: #ffffff;
+}
+
+.p-button.p-button-icon-only {
+  width: 40px !important;
+  height: 40px !important;
+}
+
+// toaster
+.p-toast-detail {
+  font-size: 14px;
+}
+
+.login-page {
+  .p-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .p-button-label {
+    flex: 0 0 auto;
+  }
+}
+
+.p-dropdown-item {
+  font-size: 14px;
+}
+
+.p-megamenu {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+}
+
+.p-megamenu-panel {
+  z-index: 10 !important;
+}
+
+.container-fluid {
+  padding: 7px 15px;
+  max-width: 98%;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.page-view {
+  position: relative;
+  z-index: 2;
+  background: #ffffff;
+  left: 0;
+  right: 0;
+  margin: -85px auto 0 auto;
+  box-shadow: 0 0px 6px 3px rgb(150 150 150 / 25%);
+  border-radius: 6px;
+}
+
+.p-megamenu .p-megamenu-root-list > .p-menuitem > .p-menuitem-link .p-menuitem-text {
+  color: #fefefe;
+}
+
+.p-megamenu .p-megamenu-root-list > .p-menuitem > .p-menuitem-link:not(.p-disabled):hover {
+  background: transparent;
+  color: #ffffff;
+}
+
+.p-megamenu .p-megamenu-root-list > .p-menuitem > .p-menuitem-link:not(.p-disabled):hover .p-menuitem-text {
+  color: #ffffff;
+}
+
+.p-megamenu .p-megamenu-root-list > .p-menuitem > .p-menuitem-link:not(.p-disabled):hover .p-submenu-icon {
+  color: #ffffff;
+}
+
+.p-megamenu .p-megamenu-root-list > .p-menuitem > .p-menuitem-link .p-submenu-icon {
+  color: #ffffff;
+}
+
+.header-top {
+  background: var(--primary-color) url("/assets/images/pattern.png");
+  padding-bottom: 79px;
+}
+
+// breadcrumb
+.p-breadcrumb {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+}
+
+.p-breadcrumb ul li .p-menuitem-link .p-menuitem-icon {
+  color: #dee2e6;
+}
+
+.p-breadcrumb ul li.p-breadcrumb-chevron {
+  color: #dee2e6;
+}
+
+.p-breadcrumb ul li .p-menuitem-link .p-menuitem-text {
+  color: #dee2e6;
+  font-size: 14px;
+}
+
+// overwrite css
+.p-button {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+// add page styles
+.add-page .title {
+  padding: 10px 10px 10px 20px;
+  border-bottom: 1px solid #d0d0d0;
+}
+
+.add-page .title h1 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.add-page .title h1 span {
+  font-weight: normal;
+  padding-right: 10px;
+}
+
+.add-page form .form-elements {
+  padding: 20px;
+}
+
+.p-picklist-source-controls,
+.p-picklist-target-controls {
+  display: none !important;
+}
+
+.form-submit {
+  padding: 20px;
+  border-top: 1px solid #d0d0d0;
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+// report categories
+.p-card .icon {
+  padding: 10px;
+  margin-right: 10px;
+}
+
+.p-card {
+  box-shadow: 0 0 5px 0 rgb(0 0 0 / 25%);
+  transition: 0.3s;
+  &:hover {
+    background: var(--primary-color);
+    transition: 0.3s;
+    .contents {
+      h4 {
+        color: #ffffff;
+      }
+      p {
+        color: #fefefe;
+      }
+    }
+    .icon i {
+      color: #ffffff;
+    }
+  }
+}
+
+.icon i {
+  font-size: 22px;
+}
+
+.p-card .contents h4 {
+  text-transform: capitalize;
+  font-size: 14px;
+  margin-bottom: 3px;
+}
+
+.p-card .contents p {
+  font-size: 14px;
+}
+
+.form-group {
+  .p-multiselect,
+  .p-dropdown,
+  .p-calendar {
+    width: 100%;
+  }
+}
+
+.p-sidebar-close {
+  background: transparent !important;
+  color: #ffffff !important;
+  height: 42px !important;
+  width: 42px !important;
+}
+
+// fixed coloumn "Actions"
+th.fixed-column {
+  position: sticky;
+  left: 0;
+  // background: #ffffff;
+  border-bottom: 1px solid #e9ecef;
+}
+
+// dialog window footer customization
+.p-dialog .p-dialog-footer {
+  padding: 0.5rem 1rem;
+  // box-shadow: 0px -5px 16px 3px rgb(125 125 125 / 25%);
+  z-index: 1;
+}
+
+.custom-dialog-footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+.p-card:hover .hover-black-white {
+  color: #ffffff !important;
+}
+
+// multiselect
+:host ::ng-deep .p-multiselect {
+  min-width: 15rem;
+  width: 18rem;
+}
+
+:host ::ng-deep .multiselect-custom {
+  .p-multiselect-label {
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+  }
+
+  .country-item-value {
+    padding: 0.25rem 0.5rem;
+    border-radius: 3px;
+    display: inline-flex;
+    margin-right: 0.5rem;
+    background-color: var(--primary-color);
+    color: var(--primary-color-text);
+
+    img.flag {
+      width: 17px;
+    }
+  }
+
+  .country-placeholder {
+    padding: 0.25rem;
+  }
+}
+:host ::ng-deep {
+  @media screen and (max-width: 640px) {
+    .p-multiselect {
+      width: 100%;
+    }
+  }
+}
+
+// tree node spacing overwritten
+.p-tree .p-tree-container .p-treenode .p-treenode-content {
+  padding: 0 !important;
+}
+
+// listbox
+.p-listbox {
+  border: 0;
+}
+
+// reporst list page
+.reports-page .p-datatable .p-datatable-header {
+  padding: 0;
+}
+
+// category list page
+.categories .p-card .card-actions {
+  display: none;
+}
+
+.categories .p-card:hover .card-actions {
+  display: block;
+}
+
+// Block UI
+.p-blockui,
+.p-blockui.p-component-overlay {
+  z-index: 10;
+}
+
+app-report table {
+  width: 100% !important;
+}
+
+app-report table td:empty {
+  display: none !important;
+}

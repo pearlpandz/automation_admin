@@ -1,0 +1,55 @@
+<div class="header-top">
+    <app-header></app-header>
+    <app-breadcrumb [title]="'Users'" [items]="breadcrumb"></app-breadcrumb>
+</div>
+
+<div class="container-fluid">
+    <div class="page-view add-page">
+
+        <div class="title flex-box">
+            <h1> <span (click)="_location.back()" class="pointer"><i class="pi pi-chevron-left"></i> Back</span> Create
+                New User
+            </h1>
+            <div class="flex-box">
+                <p class="mr-10">Is Lockedout?</p>
+                <p-inputSwitch></p-inputSwitch>
+            </div>
+        </div>
+
+        <form [formGroup]="userForm" (ngSubmit)="submit(userForm.value)">
+            <div class="form-elements">
+                <div class="card">
+                    <div class="p-fluid p-formgrid p-grid">
+                        <div class="p-field p-col-4">
+                            <label for="email">Email<span class="error">*</span></label>
+                            <input formControlName="email" id="email" type="email" pInputText>
+                        </div>
+
+                        <div class="p-field p-col-4">
+                            <label for="username">Username<span class="error">*</span></label>
+                            <input formControlName="username" id="username" type="text" pInputText>
+                        </div>
+
+                        <div class="p-field p-col-4">
+                            <label for="mobile">Mobile<span class="error">*</span></label>
+                            <input formControlName="mobile" id="mobile" type="text" pInputText>
+                        </div>
+
+                        <div class="p-field p-col-4">
+                            <label for="address">Address<span class="error">*</span></label>
+                            <input formControlName="address" id="address" type="address" pInputText>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-submit">
+                <button pButton pRipple type="button" label="Cancel"
+                    class="p-button-rounded p-button-secondary my-btn mr-10"></button>
+                <button pButton pRipple type="submit" label="Save" class="p-button-rounded my-btn" iconPos="right"
+                    [disabled]="!userForm.valid || isProgress"
+                    [icon]="isCompleted ? 'pi pi-check' : isProgress ? 'pi pi-spin pi-spinner' : 'pi' "></button>
+            </div>
+        </form>
+
+    </div>
+</div>
