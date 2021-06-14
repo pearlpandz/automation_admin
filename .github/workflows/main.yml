@@ -31,7 +31,6 @@ jobs:
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           script: |
             ls
-            rm -r automation_admin/
-            mkdir automation_admin
-            cp -R ./dist/chennai-automation-admin/ /automation_admin
+            cd automation_admin/
+            git pull
             echo 'Deployment successfull to digital ocean'
