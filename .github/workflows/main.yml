@@ -1,0 +1,27 @@
+name: Build & Deploy
+on:
+  push:
+    branches: [master]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Deploy Angular Project
+        uses: appleboy/ssh-action@v0.1.2
+        
+      - name: Install npm modules
+        run: npm install
+       
+      - name: Build Project
+        run: npm run build
+        
+        with: 
+          host: ${{secrets.SSH_HOST}}
+          key: ${{secrets.SSH_KEY}}
+          username: ${{secrets.SSH_USERNAME}}
+          port: ${{ secrets.SSH_PORT }}
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
+          local-dir: ./dist/chennai-automation-admin/
+          server-dir: /automation_admin
+          dangerous-clean-slate: true
