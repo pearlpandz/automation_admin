@@ -18,107 +18,54 @@ export class UserListComponent implements OnInit {
   ];
 
   data: any[];
-  dataKey = 'userId';
-  columns = [
-    {
-      field: 'firstName',
-      title: 'First Name',
-      filterBy: 'input',
-      type: 'string',
-      active: true
-    },
-    {
-      field: 'lastName',
-      title: 'Last Name',
-      filterBy: 'input',
-      type: 'string',
-      active: true
-    },
-    {
-      field: 'userName',
-      title: 'Username',
-      filterBy: 'input',
-      type: 'string',
-      active: true
-    },
-    {
-      field: 'displayName',
-      title: 'Display Name',
-      filterBy: 'input',
-      type: 'string',
-      active: true
-    },
-    {
-      field: 'operator',
-      title: 'Operator',
-      filterBy: 'input',
-      type: 'string',
-      active: false
-    },
-    {
-      field: 'email',
-      title: 'Email',
-      filterBy: 'input',
-      type: 'string',
-      active: true
-    },
-    {
-      field: 'role',
-      title: 'User Type',
-      filterBy: 'input',
-      type: 'string',
-      active: true
-    },
-    {
-      field: 'group',
-      title: 'Group',
-      filterBy: 'input',
-      type: 'string',
-      active: true
-    },
-    {
-      field: 'isVerify',
-      title: 'is Verified?',
-      filterBy: 'input',
-      type: 'string',
-      active: true
-    },
-    {
-      field: 'isLockedOut',
-      title: 'is Locked?',
-      filterBy: 'input',
-      type: 'string',
-      active: true
-    },
-    {
-      field: 'lastPasswordReset',
-      title: 'Last Password Reset',
-      filterBy: 'calendar',
-      type: 'date',
-      active: true
-    },
-    {
-      field: 'active',
-      title: 'Is Active?',
-      filterBy: 'input',
-      type: 'string',
-      active: true
-    },
-    {
-      field: 'createdDate',
-      title: 'Created Date',
-      filterBy: 'calendar',
-      type: 'date',
-      active: true
-    },
-    {
-      field: 'modifiedDate',
-      title: 'Modified Date',
-      filterBy: 'calendar',
-      type: 'date',
-      active: true
-    }
+  dataKey = 'id';
+  columns = [{
+    field: 'name',
+    title: 'Name',
+    filterBy: 'input',
+    type: 'string',
+    active: true
+  }, {
+    field: 'email',
+    title: 'Email',
+    filterBy: 'input',
+    type: 'string',
+    active: true
+  },
+  {
+    field: 'isActive',
+    title: 'Is Verified?',
+    filterBy: 'input',
+    type: 'boolean',
+    active: true
+  },
+  {
+    field: 'createdAt',
+    title: 'Created Date',
+    filterBy: 'calendar',
+    type: 'date',
+    active: true
+  },
+  {
+    field: 'lastLogin',
+    title: 'Modified Date',
+    filterBy: 'calendar',
+    type: 'date',
+    active: true
+  }
   ]
+
+  actions = [{
+    type: 'edit',
+    label: 'Edit User',
+    icon: 'pi pi-pencil',
+    isView: true
+  }, {
+    type: 'delete',
+    label: 'Delete User',
+    icon: 'pi pi-trash',
+    isView: true
+  }];
   loading: boolean = false;
   isRowGroup: boolean = false;
 
@@ -133,7 +80,7 @@ export class UserListComponent implements OnInit {
   ngOnInit(): void {
 
     this.commonService.getMethodWithAuth(`${URLS.USER.LIST}`).subscribe(users => {
-      this.data = users.userResultSet;
+      this.data = users;
     })
 
     this.emailForm = new FormGroup({

@@ -528,3 +528,7 @@ app-report table {
 app-report table td:empty {
   display: none !important;
 }
+
+.not-verified {
+  color: red;
+}

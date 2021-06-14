@@ -54,15 +54,12 @@ export class AuthInterceptor implements HttpInterceptor {
     handleResponseError(error, request?, next?) {
         // Business error
         if (error.status === 400) {
+            console.log(error);
             // Show message
             this.messageService.add({
                 severity: 'error',
-                summary: `${error?.error?.errorList ?
-                    error?.error?.errorList.map(a => a.error).toString() :
-                    error?.error?.error}`,
-                detail: `${error?.error?.errorList ?
-                    error?.error?.errorList.map(a => a.error_description).toString() :
-                    error?.error?.error_description}`
+                summary: `${error?.message}`,
+                detail: `${error?.message}`
             });
         }
 

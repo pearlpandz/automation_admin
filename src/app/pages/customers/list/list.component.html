@@ -7,8 +7,8 @@
     <div class="page-view">
         <app-datatable [dataKey]="dataKey" [data]="data" [columns]="columns" [loading]="loading" [title]="'Users'"
             [isRowGroup]="isRowGroup" [isExport]=true [isShowDisplaySettings]=true [isEmail]=true
-            (sendEmail)="sendEmail($event)" [isRowAction]="true" [module]="'user'" [routePath]="'customer/add'"
-            [isAdd]="true">
+            (sendEmail)="sendEmail($event)" [isRowAction]="true" [module]="'user'" [routePath]="'customer/add'" [actions]="actions"
+            [isAdd]="true" [isColumnFilter]="true">
         </app-datatable>
     </div>
 </div>

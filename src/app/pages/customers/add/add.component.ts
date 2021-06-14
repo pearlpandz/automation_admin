@@ -35,8 +35,8 @@ export class UserAddComponent implements OnInit {
 
   ngOnInit(): void {
     this.userForm = new FormGroup({
+      name: new FormControl('', Validators.required),
       email: new FormControl('', Validators.required),
-      username: new FormControl('', Validators.required),
       mobile: new FormControl('', Validators.required),
       address: new FormControl('', Validators.required),
     })
@@ -46,19 +46,19 @@ export class UserAddComponent implements OnInit {
     if (values) {
       this.isProgress = true;
 
-      const _body = [{
-        userName: values.username,
+      const _body = {
+        name: values.name,
         email: values.email,
         mobile: values.mobile,
         address: values.address
-      }]
-      this.http.post(`${URLS.USER.LIST}`, _body).subscribe((res: any) => {
+      }
+      this.http.post(`${URLS.USER.ADD}`, _body).subscribe((res: any) => {
         this.isProgress = false;
         this.isCompleted = true;
         this.messageService.add({
-          severity: 'success', summary: 'Success', detail: `${_body[0].userName} created successfully!`
+          severity: 'success', summary: 'Success', detail: `${_body.name} created successfully!`
         });
-        this.router.navigateByUrl('/users');
+        this.router.navigateByUrl('/customer/list');
       }, (error: HttpErrorResponse) => {
         this.isProgress = false;
         this.isCompleted = false;

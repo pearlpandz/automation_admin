@@ -72,7 +72,7 @@
 
                 <p-calendar *ngSwitchCase="'calendar'" (onSelect)="onDateSelect($event)"
                     (onClearClick)="dt.filter('', 'date', 'equals')" [showButtonBar]="true" styleClass="p-column-filter"
-                    placeholder="Search by {{col.title}}" [readonlyInput]="true" dateFormat="yy-mm-dd" appendTo="body">
+                    placeholder="Search by {{col.title}}" [readonlyInput]="true" dateFormat="mm/dd/yy" appendTo="body">
                 </p-calendar>
             </th>
         </tr>
@@ -117,6 +117,9 @@
                         <span *ngSwitchCase="'date'" class="date-span">
                             {{ rowData[col.field] | StrToDate}}
                         </span>
+                        <span *ngSwitchCase="'boolean'" class="boolean">
+                            {{ rowData[col.field] ? 'Verified' : 'Not Verified'}}
+                        </span>
                         <span *ngSwitchCase="'percentage'">
                             {{ rowData[col.field] | AddPercentage}}
                         </span>
@@ -152,6 +155,9 @@
                         </span>
                         <span *ngSwitchCase="'percentage'">
                             {{ rowData[col.field] | AddPercentage}}
+                        </span>
+                        <span *ngSwitchCase="'boolean'" class="boolean" [ngClass]="rowData[col.field] ? 'verified' : 'not-verified'">
+                            {{ rowData[col.field] ? 'Verified' : 'Not Verified'}}
                         </span>
                         <span *ngSwitchCase="'status'" [class]="'customer-badge status-' + rowData[col.field]">
                             {{ rowData[col.field]}}
