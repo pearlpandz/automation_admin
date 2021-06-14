@@ -29,6 +29,9 @@ jobs:
           username: ${{secrets.SSH_USERNAME}}
           port: ${{ secrets.SSH_PORT }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
-          local-dir: ./dist/chennai-automation-admin/
-          server-dir: /automation_admin
-          dangerous-clean-slate: true
+          script: |
+            cd automation_backend
+            rm -r automation_admin/
+            mkdir automation_admin
+            cp -R ./dist/chennai-automation-admin/ /automation_admin/
+            echo 'Deployment successfull to digital ocean'
