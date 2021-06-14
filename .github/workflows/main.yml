@@ -33,4 +33,5 @@ jobs:
             ls
             cd automation_admin/
             git pull
+            pm2 restart 7
             echo 'Deployment successfull to digital ocean'
