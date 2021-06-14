@@ -30,8 +30,8 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           script: |
-            cd automation_backend
+            ls
             rm -r automation_admin/
             mkdir automation_admin
-            cp -R ./dist/chennai-automation-admin/ /automation_admin/
+            cp -R ./dist/chennai-automation-admin/ /automation_admin
             echo 'Deployment successfull to digital ocean'
