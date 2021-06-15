@@ -39,4 +39,4 @@ jobs:
           PASSPHRASE: ${{ secrets.SSH_PASSPHRASE }}
         with:
           source: "./dist/chennai-automation-admin/"
-          target: "/automation_admin"
+          target: "~/automation_admin/"
