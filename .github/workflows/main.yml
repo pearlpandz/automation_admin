@@ -40,5 +40,3 @@ jobs:
         with:
           source: "./dist/chennai-automation-admin/"
           target: "/automation_admin"
-          script: |
-              echo 'Deployment successfull to digital ocean'
