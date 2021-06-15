@@ -14,24 +14,34 @@ jobs:
 
       - name: Use Node.js 14 LTS
         uses: actions/setup-node@v2
+      
+      - name: re-using node_modules caching, making builds a bit faster
+        uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
     
       - name: Install npm modules
         run: npm install
+        
+      - name: Install Angular CLI
+        run: npm install -g @angular/cli > /dev/null
        
       - name: Build Project
-        run: npm run build
+        run: ng build --prod
         
       - name: Deploy Angular Project
-        uses: appleboy/ssh-action@v0.1.2
-        with: 
+        uses: appleboy/scp-action@master
+        env: 
           host: ${{secrets.SSH_HOST}}
           key: ${{secrets.SSH_KEY}}
           username: ${{secrets.SSH_USERNAME}}
           port: ${{ secrets.SSH_PORT }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
+        with:
+          source: "./dist/chennai-automation-admin/"
+          target: "/automation_admin"
           script: |
-            ls
-            cd automation_admin/
-            git pull
-            pm2 restart 7
-            echo 'Deployment successfull to digital ocean'
+              echo 'Deployment successfull to digital ocean'
