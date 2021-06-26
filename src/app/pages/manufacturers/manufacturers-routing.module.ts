@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { UserAddComponent } from './add/add.component';
-import { UserListComponent } from './list/list.component';
+import { ManufacturerAddComponent } from './add/add.component';
+import { ManufacturerListComponent } from './list/list.component';
 
 const routes: Routes = [
     {
@@ -11,13 +11,10 @@ const routes: Routes = [
     },
     {
         path: 'list',
-        component: UserListComponent
+        component: ManufacturerListComponent
     }, {
         path: 'add',
-        component: UserAddComponent
-    }, {
-        path: 'edit/:id',
-        component: UserAddComponent
+        component: ManufacturerAddComponent
     }
 ];
 
@@ -25,4 +22,4 @@ const routes: Routes = [
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule]
 })
-export class CustomersRoutingModule { }
+export class ManufacturersRoutingModule { }

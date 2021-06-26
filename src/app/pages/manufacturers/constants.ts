@@ -1,4 +1,4 @@
 export const BREADCRUMB_ADD = [
-    { label: 'Customers' },
+    { label: 'Users' },
     { label: 'Add' },
 ];

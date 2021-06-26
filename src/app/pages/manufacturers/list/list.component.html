@@ -1,0 +1,51 @@
+<div class="header-top">
+    <app-header></app-header>
+    <app-breadcrumb [title]="'Users'" [items]="breadcrumb"></app-breadcrumb>
+</div>
+
+<div class="container-fluid">
+    <div class="page-view">
+        <app-datatable [dataKey]="dataKey" [data]="data" [columns]="columns" [loading]="loading" [title]="'Users'"
+            [isRowGroup]="isRowGroup" [isExport]=true [isShowDisplaySettings]=true [isEmail]=true
+            (sendEmail)="sendEmail($event)" [isRowAction]="true" [module]="'user'" [routePath]="'customer/add'" [actions]="actions"
+            [isAdd]="true" [isColumnFilter]="true">
+        </app-datatable>
+    </div>
+</div>
+
+
+<p-dialog header="Email Report: test report" [(visible)]="display" [style]="{width: '50vw'}" [baseZIndex]="10000">
+    <form [formGroup]="emailForm">
+        <div class="p-fluid">
+            <div class="p-field">
+                <label for="to">To Address</label>
+                <input id="to" formControlName="to" type="text" pInputText>
+            </div>
+            <div class="p-field">
+                <label for="subject">Subject</label>
+                <input id="subject" formControlName="subject" type="text" pInputText>
+            </div>
+            <div class="p-field">
+                <label for="subject">Message</label>
+                <p-editor formControlName="message" [style]="{'height':'250px'}"></p-editor>
+            </div>
+
+            <div class="p-field-checkbox">
+                <p-checkbox binary="true" inputId="isHtmlBody" formControlName="isHtmlBody"></p-checkbox>
+                <label for="isHtmlBody">With Body Data</label>
+            </div>
+            <div class="p-field-checkbox">
+                <p-checkbox binary="true" inputId="attachementXls" formControlName="attachementXls"></p-checkbox>
+                <label for="attachementXls">With Report as XLS</label>
+            </div>
+            <div class="p-field-checkbox">
+                <p-checkbox binary="true" inputId="attachementCsv" formControlName="attachementCsv"></p-checkbox>
+                <label for="attachementCsv">With Report as CSV</label>
+            </div>
+
+        </div>
+    </form>
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-check" (click)="submit()" label="Send Email" styleClass="p-button-text"></p-button>
+    </ng-template>
+</p-dialog>

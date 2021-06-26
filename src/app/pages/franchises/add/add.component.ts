@@ -8,13 +8,13 @@ import { MessageService } from 'primeng/api';
 import { BREADCRUMB_ADD } from '../constants';
 
 @Component({
-  selector: 'app-add-user',
+  selector: 'app-add-franchise',
   templateUrl: './add.component.html',
   styleUrls: ['./add.component.scss'],
   providers: [MessageService]
 })
 
-export class UserAddComponent implements OnInit {
+export class FranchiseAddComponent implements OnInit {
   breadcrumb = BREADCRUMB_ADD;
 
   roles: any[];
@@ -41,7 +41,8 @@ export class UserAddComponent implements OnInit {
       name: new FormControl('', Validators.required),
       email: new FormControl('', Validators.required),
       mobile: new FormControl('', Validators.required),
-      address: new FormControl('', Validators.required),
+      company: new FormControl('', Validators.required),
+      address: new FormControl('', Validators.required)
     })
 
     // only edit
@@ -53,15 +54,16 @@ export class UserAddComponent implements OnInit {
   }
 
   getInfoById(id): void {
-    this.http.get(`${URLS.USER.SINGLE}/${id}`).subscribe((res: any) => {
+    this.http.get(`${URLS.ADMIN.SINGLE}/${id}`).subscribe((res: any) => {
       const data = res.data;
       this.userForm.patchValue({
         name: data.name,
         email: data.email,
         mobile: data.mobile,
+        company: data.company,
         address: data.address,
       });
-      // this.isActive = data.isActive == 1 ? true : false;
+      // this.isActive = data.isActive;
     });
   }
 
@@ -77,8 +79,9 @@ export class UserAddComponent implements OnInit {
         name: values.name,
         email: values.email,
         mobile: values.mobile,
+        company: values.company,
         address: values.address,
-        // isActive: this.isActive ? 1 : 0
+        roleId: 3
       }
 
       if (this.id) {
@@ -90,13 +93,13 @@ export class UserAddComponent implements OnInit {
   }
 
   add(data): void {
-    this.http.post(`${URLS.USER.ADD}`, data).subscribe((res: any) => {
+    this.http.post(`${URLS.ADMIN.ADD}`, data).subscribe((res: any) => {
       this.isProgress = false;
       this.isCompleted = true;
       this.messageService.add({
         severity: 'success', summary: 'Success', detail: `${data.name} created successfully!`
       });
-      this.router.navigateByUrl('/customer/list');
+      this.router.navigateByUrl('/agent/list');
     }, (error: HttpErrorResponse) => {
       this.isProgress = false;
       this.isCompleted = false;
@@ -104,13 +107,13 @@ export class UserAddComponent implements OnInit {
   }
 
   edit(data): void {
-    this.http.put(`${URLS.USER.EDIT}/${this.id}`, data).subscribe((res: any) => {
+    this.http.put(`${URLS.ADMIN.EDIT}/${this.id}`, data).subscribe((res: any) => {
       this.isProgress = false;
       this.isCompleted = true;
       this.messageService.add({
         severity: 'success', summary: 'Success', detail: `${data.name} updated successfully!`
       });
-      this.router.navigateByUrl('/customer/list');
+      this.router.navigateByUrl('/agent/list');
     }, (error: HttpErrorResponse) => {
       this.isProgress = false;
       this.isCompleted = false;

@@ -1,0 +1,17 @@
+<div class="header-top">
+    <app-header></app-header>
+    <app-breadcrumb [title]="'Agents'" [items]="breadcrumb"></app-breadcrumb>
+</div>
+
+<div class="container-fluid">
+    <div class="page-view">
+        <app-datatable [dataKey]="dataKey" [data]="data" [columns]="columns" [loading]="loading" [title]="'Agents'"
+            [isRowGroup]="isRowGroup" [isExport]=true [isShowDisplaySettings]=true  [isRowAction]="true" [module]="'agent'" [routePath]="'agent/add'"
+            [actions]="actions" [isAdd]="true" [isColumnFilter]="true"
+            (actionEmitter)="actionEmitter($event.action, $event.data)">
+        </app-datatable>
+    </div>
+</div>
+
+<p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text">
+</p-confirmDialog>

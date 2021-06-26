@@ -1,6 +1,6 @@
 <div class="header-top">
     <app-header></app-header>
-    <app-breadcrumb [title]="'Customers'" [items]="breadcrumb"></app-breadcrumb>
+    <app-breadcrumb [title]="'Users'" [items]="breadcrumb"></app-breadcrumb>
 </div>
 
 <div class="container-fluid">
@@ -8,12 +8,12 @@
 
         <div class="title flex-box">
             <h1> <span (click)="_location.back()" class="pointer"><i class="pi pi-chevron-left"></i> Back</span> Create
-                New Customer
+                New User
             </h1>
-            <!-- <div class="flex-box">
+            <div class="flex-box">
                 <p class="mr-10">Is Lockedout?</p>
-                <p-inputSwitch [(ngModel)]="isActive"></p-inputSwitch>
-            </div> -->
+                <p-inputSwitch></p-inputSwitch>
+            </div>
         </div>
 
         <form [formGroup]="userForm" (ngSubmit)="submit(userForm.value)">

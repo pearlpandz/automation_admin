@@ -4,19 +4,19 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { CommonService } from 'src/app/shared/services/http.service';
 import { URLS } from 'src/app/shared/constants/urls';
 import { HelperService } from 'src/app/shared/services/helper.service';
-import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @Component({
-  selector: 'app-user-list',
+  selector: 'app-user-franchise',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
   providers: [ConfirmationService, MessageService]
 })
-export class UserListComponent implements OnInit {
+export class FranchiseListComponent implements OnInit {
 
   breadcrumb: MenuItem[] = [
-    { label: 'Customers' },
+    { label: 'Agents' },
     { label: 'List' },
   ];
 
@@ -40,6 +40,12 @@ export class UserListComponent implements OnInit {
     filterBy: 'input',
     type: 'string',
     active: true
+  }, {
+    field: 'address',
+    title: 'Address',
+    filterBy: 'input',
+    type: 'string',
+    active: false
   },
   {
     field: 'isActive',
@@ -54,13 +60,6 @@ export class UserListComponent implements OnInit {
     filterBy: 'calendar',
     type: 'date',
     active: true
-  },
-  {
-    field: 'lastLogin',
-    title: 'Modified Date',
-    filterBy: 'calendar',
-    type: 'date',
-    active: false
   }]
 
   actions = [{
@@ -83,25 +82,26 @@ export class UserListComponent implements OnInit {
 
   constructor(
     public helper: HelperService,
+    private commonService: CommonService,
     private router: Router,
     private confirmationService: ConfirmationService,
     public messageService: MessageService,
     private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.getCustomers();
+    this.getAllAdmins();
   }
 
-  getCustomers(): void {
-    this.http.get(`${URLS.USER.LIST}`).subscribe((users: any) => {
-      this.data = users;
+  getAllAdmins(): void {
+    this.commonService.getMethodWithAuth(`${URLS.ADMIN.LIST}/3`).subscribe(res => {
+      this.data = res;
     })
   }
 
   actionEmitter(action: string, data: any) {
     switch (action) {
       case 'edit':
-        this.router.navigateByUrl(`customer/edit/${data.id}`);
+        this.router.navigateByUrl(`agent/edit/${data.id}`);
         break;
 
       case 'delete':
@@ -120,15 +120,17 @@ export class UserListComponent implements OnInit {
       header: 'Confirmation',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        const url = `${URLS.USER.SINGLE}/${data.id}`;
+        const url = `${URLS.ADMIN.SINGLE}/${data.id}`;
         this.http.delete(url).subscribe((res) => {
           this.messageService.add({
-            severity: 'success', summary: 'Deleted', detail: `${data.name} deleted successfully!`
+            severity: 'success', summary: 'Deleted', detail: `${data.userName} deleted successfully!`
           });
-          this.getCustomers();
+          this.getAllAdmins();
         });
       }
     });
   }
+
+
 
 }
