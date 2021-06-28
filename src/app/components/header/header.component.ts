@@ -8,10 +8,16 @@ import { MENU } from 'src/app/shared/constants/menu';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  items = MENU;
+  items;
   name = sessionStorage.getItem('qa_username');
 
   constructor(
     public auth: AuthService
-  ) { }
+  ) {
+    if (JSON.parse(sessionStorage.getItem('qa_role')) == 3) {
+      this.items = MENU.agent;
+    } else {
+      this.items = MENU.admin;
+    }
+  }
 }

@@ -1,0 +1,13 @@
+<div>
+    <div class="verification" *ngIf="isVerify else other">
+        <h1>Congratulations!</h1>
+        <h4>You have successfully verified your email with us</h4>
+        <a routerLink="/">Click here to login</a>
+    </div>
+    <ng-template #other>
+        <div class="loader">
+            <i class="pi pi-spin pi-spinner" style="font-size:2em"></i>
+            <h4>Validate and Verifying...</h4>
+        </div> 
+    </ng-template>
+</div>

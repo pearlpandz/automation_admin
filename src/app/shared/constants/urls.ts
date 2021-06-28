@@ -2,6 +2,7 @@ export const BASE_URL = `http://165.22.208.52:8000`;
 
 export const URLS = {
     LOGIN: `${BASE_URL}/admin/login`,
+    TOKEN: `${BASE_URL}/admin/verify`,
     USER: {
         SINGLE: `${BASE_URL}/customer`,
         LIST: `${BASE_URL}/customer/list`,

@@ -10,9 +10,10 @@ import { AuthGuardService as AuthGuard } from '../shared/guards/auth-guard.servi
 
 import { SharedModule } from '../shared/shared.module';
 import { LoginComponent } from './login/login.component';
+import { VerifyComponent } from './verify/verify.component';
 
 @NgModule({
-  declarations: [LoginComponent],
+  declarations: [LoginComponent, VerifyComponent],
   imports: [
     CommonModule,
     PagesRoutingModule,
