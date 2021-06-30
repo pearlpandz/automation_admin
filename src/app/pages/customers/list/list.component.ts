@@ -23,6 +23,12 @@ export class UserListComponent implements OnInit {
   data: any[];
   dataKey = 'id';
   columns = [{
+    field: 'code',
+    title: 'Code',
+    filterBy: 'input',
+    type: 'string',
+    active: true
+  }, {
     field: 'name',
     title: 'Name',
     filterBy: 'input',
@@ -53,7 +59,7 @@ export class UserListComponent implements OnInit {
     title: 'Created Date',
     filterBy: 'calendar',
     type: 'date',
-    active: true
+    active: false
   },
   {
     field: 'lastLogin',

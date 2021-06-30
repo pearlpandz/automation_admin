@@ -58,8 +58,8 @@ export class AuthInterceptor implements HttpInterceptor {
             // Show message
             this.messageService.add({
                 severity: 'error',
-                summary: `${error?.message}`,
-                detail: `${error?.message}`
+                summary: `${error?.statusText}`,
+                detail: `${error?.error?.message}`
             });
         }
 
@@ -85,10 +85,19 @@ export class AuthInterceptor implements HttpInterceptor {
             this.messageService.add({
                 severity: 'error',
                 summary: 'Access Denied',
-                detail: `You're not authorized to access this page!`
+                detail: `You're not authorized!`
             });
-            // Logout
-            this.logout();
+        }
+
+        // Duplicate Entry
+        else if (error.status === 409) {
+            console.log(error);
+            // Show message
+            this.messageService.add({
+                severity: 'error',
+                summary: `${error?.statusText}`,
+                detail: `${error?.error?.message}`
+            });
         }
 
         // Server error

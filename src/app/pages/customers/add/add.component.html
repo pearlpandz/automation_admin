@@ -1,3 +1,5 @@
+<p-toast></p-toast>
+
 <div class="header-top">
     <app-header></app-header>
     <app-breadcrumb [title]="'Customers'" [items]="breadcrumb"></app-breadcrumb>
@@ -43,8 +45,6 @@
                 </div>
             </div>
             <div class="form-submit">
-                <button pButton pRipple type="button" label="Cancel"
-                    class="p-button-rounded p-button-secondary my-btn mr-10"></button>
                 <button pButton pRipple type="submit" label="Save" class="p-button-rounded my-btn" iconPos="right"
                     [disabled]="!userForm.valid || isProgress"
                     [icon]="isCompleted ? 'pi pi-check' : isProgress ? 'pi pi-spin pi-spinner' : 'pi' "></button>
