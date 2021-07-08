@@ -1,6 +1,5 @@
 import { Component, Input, OnInit, ViewChild, Inject, OnChanges, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-
 import { Table } from 'primeng/table';
 
 @Component({
@@ -47,6 +46,11 @@ export class DatatableComponent implements OnInit, OnChanges {
 
   @Input() isColumnFilter: boolean;
 
+  @Input() isTransferCustomer: boolean;
+  @Input() agents: any[];
+  agentList;
+  @Output() transferCustomerEmitter: EventEmitter<any> = new EventEmitter();
+
   // @Input() groupByFieldName:string;
   groupByFieldName = 'fiscalMonth';
   rowGroupMetadata: any;
@@ -57,11 +61,11 @@ export class DatatableComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.selectedColumns = this.columns.filter(column => column.active);
-
   }
 
   ngOnChanges() {
     this.updateRowGroupMetaData();
+    this.getAgentList();
   }
 
 
@@ -146,6 +150,25 @@ export class DatatableComponent implements OnInit, OnChanges {
 
   reportInfo(rowData): void {
     this.reportDetails.emit(rowData);
+  }
+
+  getAgentList(): void {
+    this.agentList = [];
+    this.agents?.forEach(agent => {
+      this.agentList.push({
+        label: `${agent.name} (${agent.code})`,
+        command: () => {
+          this.transferCustomer(agent.id);
+        }
+      })
+    })
+  }
+
+  transferCustomer(agentId: number): void {
+    this.transferCustomerEmitter.emit({
+      otherAgentId: agentId,
+      customerIds: this.selectedRow?.map(a => a.id)
+    });
   }
 
 }

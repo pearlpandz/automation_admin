@@ -1,0 +1,69 @@
+<p-toast></p-toast>
+
+<div class="header-top">
+    <app-header></app-header>
+    <app-breadcrumb [title]="'Products'" [items]="breadcrumb"></app-breadcrumb>
+</div>
+
+<div class="container-fluid">
+    <div class="page-view add-page">
+
+        <div class="title flex-box">
+            <h1> <span (click)="_location.back()" class="pointer"><i class="pi pi-chevron-left"></i> Back</span> Create
+                New Proudct
+            </h1>
+            <!-- <div class="flex-box">
+                <p class="mr-10">Is Lockedout?</p>
+                <p-inputSwitch [(ngModel)]="isActive"></p-inputSwitch>
+            </div> -->
+        </div>
+
+        <form [formGroup]="form" (ngSubmit)="submit(form.value)">
+            <div class="form-elements">
+                <div class="card">
+                    <div class="p-fluid p-formgrid p-grid">
+                        <div class="p-field p-col-4">
+                            <label for="name">Name<span class="error">*</span></label>
+                            <input formControlName="name" id="name" type="text" pInputText>
+                        </div>
+
+                        <div class="p-field p-col-4">
+                            <label for="email">Description<span class="error">*</span></label>
+                            <input formControlName="description" id="description" type="text" pInputText>
+                        </div>
+
+                        <div class="p-field p-col-4">
+                            <label for="quantity">Quantity<span class="error">*</span></label>
+                            <input formControlName="quantity" id="quantity" type="number" pInputText>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="card flex-box">
+                    <h4>Configurations</h4>
+                    <button pButton pRipple type="button" label="Add Configuration" class="p-button-text"
+                        icon="pi pi-check" (click)="addConfig()"></button>
+                </div>
+                <div class="card" formArrayName="configurations"
+                    *ngFor="let config of configurations.controls; let i = index">
+                    <div class="p-fluid p-formgrid p-grid" [formGroupName]="i">
+                        <div class="p-field p-col-4">
+                            <label for="connectedWith">Connected With<span class="error">*</span></label>
+                            <input formControlName="connectedWith" id="connectedWith" type="text" pInputText>
+                        </div>
+                        <div class="p-field p-col-4">
+                            <label for="switchNo">Switch No<span class="error">*</span></label>
+                            <input formControlName="switchNo" id="switchNo" type="text" pInputText>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-submit">
+                <button pButton pRipple type="submit" label="Save" class="p-button-rounded my-btn" iconPos="right"
+                    [disabled]="!form.valid || isProgress"
+                    [icon]="isCompleted ? 'pi pi-check' : isProgress ? 'pi pi-spin pi-spinner' : 'pi' "></button>
+            </div>
+        </form>
+
+    </div>
+</div>

@@ -2,7 +2,8 @@
     [rowsPerPageOptions]="[10,25,50]" [showCurrentPageReport]=true [loading]="loading"
     styleClass="p-datatable-responsive-demo" [paginator]="!isRowGroup"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
-    [globalFilterFields]="[]" [reorderableColumns]="!isRowGroup" selectionMode="single" [(selection)]="selectedRow">
+    [globalFilterFields]="[]" [reorderableColumns]="!isRowGroup" [(selection)]="selectedRow" selectionMode="multiple"
+    [metaKeySelection]="true">
 
     <ng-template pTemplate="caption">
         <div class="table-header" *ngIf="title">
@@ -11,33 +12,39 @@
             </h4>
             <div class="p-d-flex">
 
+                <ng-container *ngIf="isTransferCustomer">
+                    <p-splitButton label="Transfer Customers To" [model]="agentList"
+                        [disabled]="selectedRow.length<1">
+                    </p-splitButton>
+                </ng-container>
+
                 <ng-container *ngIf="isAdd">
                     <button type="button" pButton pRipple icon="pi pi-plus" label="Create {{module}}"
-                        (click)="route(routePath)" class="p-mr-2 p-button-rounded my-btn text-capital"></button>
+                        (click)="route(routePath)" class="p-ml-2 p-button-rounded my-btn text-capital"></button>
                 </ng-container>
 
                 <ng-container *ngIf="isPopup">
                     <button type="button" pButton pRipple icon="pi pi-plus" label="Create {{module}}"
-                        (click)="openPopup()" class="p-mr-2 p-button-rounded my-btn text-capital"></button>
+                        (click)="openPopup()" class="p-ml-2 p-button-rounded my-btn text-capital"></button>
                 </ng-container>
 
-                <!-- <ng-container *ngIf="isEmail">
-                    <button type="button" pButton pRipple icon="pi pi-envelope" label="Send Email" (click)="email()"
-                        class="p-mr-2 p-button-rounded my-btn"></button>
-                </ng-container> -->
+                <ng-container *ngIf="isBulkDelete">
+                    <button type="button" pButton pRipple icon="pi pi-trash" (click)="rowAction('bulk',selectedRow)"
+                        class="p-ml-2 p-button-rounded" pTooltip="Bulk Delete" tooltipPosition="bottom"></button>
+                </ng-container>
 
                 <ng-container *ngIf="isExport">
                     <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="dt.exportCSV()"
-                        class="p-mr-2 p-button-rounded" pTooltip="Export as CSV" tooltipPosition="bottom"></button>
+                        class="p-ml-2 p-button-rounded" pTooltip="Export as CSV" tooltipPosition="bottom"></button>
                 </ng-container>
 
-                <p-multiSelect *ngIf="isShowDisplaySettings" class="p-mr-2" [options]="columns"
+                <p-multiSelect *ngIf="isShowDisplaySettings" class="p-ml-2" [options]="columns"
                     [(ngModel)]="selectedColumns" optionLabel="title" selectedItemsLabel="{0} columns selected"
                     [style]="{width: '300px'}" placeholder="Choose Columns" pTooltip="Display Settings"
                     tooltipPosition="bottom">
                 </p-multiSelect>
 
-                <span *ngIf="isShowGlobalFilter" class="p-input-icon-left">
+                <span *ngIf="isShowGlobalFilter" class="p-input-icon-left p-ml-2">
                     <i class="pi pi-search"></i>
                     <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
                         placeholder="Global Search" />
@@ -45,11 +52,10 @@
             </div>
         </div>
     </ng-template>
+
     <ng-template pTemplate="header" let-columns>
         <tr>
-            <th *ngIf="isRowSelect">
-                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-            </th>
+            <th *ngIf="isRowSelect" style="width: 3rem"></th>
             <th *ngIf="isRowExpand" style="width: 3rem"></th>
             <th class="fixed-column" *ngIf="isRowAction">Actions</th>
             <ng-container *ngIf="isRowGroup else normalColumn">
@@ -62,7 +68,9 @@
             </ng-template>
         </tr>
         <tr *ngIf="isColumnFilter">
-            <th *ngIf="isRowSelect" style="width: 3rem"></th>
+            <th *ngIf="isRowSelect">
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
             <th *ngIf="isRowExpand" style="width: 3rem"></th>
             <th class="fixed-column" *ngIf="isRowAction"></th>
             <th *ngFor="let col of columns" [ngSwitch]="col.filterBy">
@@ -72,14 +80,14 @@
 
                 <p-calendar *ngSwitchCase="'calendar'" (onSelect)="onDateSelect($event)"
                     (onClearClick)="dt.filter('', 'date', 'equals')" [showButtonBar]="true" styleClass="p-column-filter"
-                    placeholder="Search by {{col.title}}" [readonlyInput]="true" dateFormat="mm/dd/yy" appendTo="body">
+                    placeholder="Search by {{col.title}}" [readonlyInput]="true" dateFormat="yy-mm-dd" appendTo="body">
                 </p-calendar>
             </th>
         </tr>
     </ng-template>
+
     <ng-template pTemplate="body" let-rowData let-columns="columns" let-expanded="expanded" let-rowIndex="rowIndex">
-        <tr class="p-selectable-row pointer" [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex"
-            [style.background-color]="rowIndex.checked ? 'rgba(255, 136, 0, 0.3)':'' ">
+        <tr class="pointer" [style.background-color]="rowIndex.checked ? 'rgba(255, 136, 0, 0.3)':'' ">
             <td *ngIf="isRowSelect">
                 <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
             </td>
@@ -90,14 +98,12 @@
             </td>
             <th class="fixed-column" *ngIf="isRowAction">
                 <ul class="action-icons" *ngIf="actions.length > 0">
-                    <ng-container *ngFor="let action of actions">
-                        <li *ngIf="action.isView">
-                            <a (click)="rowAction(action.type,rowData)" class="pointer" pTooltip="{{action.label}}"
-                                tooltipPosition="bottom">
-                                <i class="{{action.icon}}"></i>
-                            </a>
-                        </li>
-                    </ng-container>
+                    <li *ngFor="let action of actions">
+                        <a *ngIf="action.isView" (click)="rowAction(action.type,rowData)" class="pointer"
+                            pTooltip="{{action.label}}" tooltipPosition="bottom">
+                            <i class="{{action.icon}}"></i>
+                        </a>
+                    </li>
                 </ul>
             </th>
 
@@ -116,9 +122,6 @@
                         </span>
                         <span *ngSwitchCase="'date'" class="date-span">
                             {{ rowData[col.field] | StrToDate}}
-                        </span>
-                        <span *ngSwitchCase="'boolean'" class="boolean">
-                            {{ rowData[col.field] ? 'Verified' : 'Not Verified'}}
                         </span>
                         <span *ngSwitchCase="'percentage'">
                             {{ rowData[col.field] | AddPercentage}}
@@ -156,9 +159,6 @@
                         <span *ngSwitchCase="'percentage'">
                             {{ rowData[col.field] | AddPercentage}}
                         </span>
-                        <span *ngSwitchCase="'boolean'" class="boolean" [ngClass]="rowData[col.field] ? 'verified' : 'not-verified'">
-                            {{ rowData[col.field] ? 'Verified' : 'Not Verified'}}
-                        </span>
                         <span *ngSwitchCase="'status'" [class]="'customer-badge status-' + rowData[col.field]">
                             {{ rowData[col.field]}}
                         </span>
@@ -179,48 +179,10 @@
             </ng-container>
         </tr>
     </ng-template>
-    <ng-template pTemplate="rowexpansion" let-rowData>
-        <tr>
-            <td colspan="6">
-                <div class="p-p-3">
-                    <p-table [value]="rowData.orders">
-                        <ng-template pTemplate="header">
-        <tr>
-            <th pSortableColumn="id">Id <p-sortIcon field="price"></p-sortIcon>
-            </th>
-            <th pSortableColumn="rowData">Customer <p-sortIcon field="customer"></p-sortIcon>
-            </th>
-            <th pSortableColumn="date">Date <p-sortIcon field="date"></p-sortIcon>
-            </th>
-            <th pSortableColumn="amount">Amount <p-sortIcon field="amount"></p-sortIcon>
-            </th>
-            <th pSortableColumn="status">Status <p-sortIcon field="status"></p-sortIcon>
-            </th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-order>
-        <tr>
-            <td>{{order.id}}</td>
-            <td>{{order.customer}}</td>
-            <td>{{order.id}}</td>
-            <td>{{order.amount | currency:'USD'}}</td>
-            <td><span [class]="'order-badge order-' + order.status.toLowerCase()">{{order.status}}</span></td>
-        </tr>
-    </ng-template>
+
     <ng-template pTemplate="emptymessage">
         <tr>
-            <td colspan="5" class="text-center">There are no order for this user yet.</td>
+            <td colspan="5" class="text-center">No data found.</td>
         </tr>
     </ng-template>
-</p-table>
-</div>
-</td>
-</tr>
-</ng-template>
-<ng-template pTemplate="emptymessage">
-    <tr>
-        <td [attr.colspan]="selectedColumns.length + 1" class="text-center">No data found.
-        </td>
-    </tr>
-</ng-template>
 </p-table>

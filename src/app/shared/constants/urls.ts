@@ -8,11 +8,17 @@ export const URLS = {
         LIST: `${BASE_URL}/customer/list`,
         ADD: `${BASE_URL}/customer/add`,
         EDIT: `${BASE_URL}/customer/edit`,
+        TRANSFER: `${BASE_URL}/customer/transfer`
     },
     ADMIN: {
         SINGLE: `${BASE_URL}/admin`,
         LIST: `${BASE_URL}/admin/list`,
         ADD: `${BASE_URL}/admin/add`,
         EDIT: `${BASE_URL}/admin/edit`,
-    }
+        EXCEPT_AGENT_LIST: `${BASE_URL}/admin/agent/list`
+    },
+    PRODUCT: {
+        SINGLE: `${BASE_URL}/product`,
+        LIST: `${BASE_URL}/products`
+    },
 }

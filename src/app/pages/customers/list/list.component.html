@@ -9,8 +9,10 @@
     <div class="page-view">
         <app-datatable [dataKey]="dataKey" [data]="data" [columns]="columns" [loading]="loading" [title]="'Customers'"
             [isRowGroup]="isRowGroup" [isExport]=true [isShowDisplaySettings]=true [isRowAction]="true"
-            [module]="'customer'" [routePath]="'customer/add'" [actions]="actions" [isAdd]="true"
-            [isColumnFilter]="true" (actionEmitter)="actionEmitter($event.action, $event.data)">
+            [isRowSelect]="true" [module]="'customer'" [routePath]="'customer/add'" [actions]="actions" [isAdd]="true"
+            [isColumnFilter]="true" (actionEmitter)="actionEmitter($event.action, $event.data)"
+            [isTransferCustomer]="true"
+            (transferCustomerEmitter)="transferCustomer($event.otherAgentId, $event.customerIds)" [agents]="agents">
         </app-datatable>
     </div>
 </div>

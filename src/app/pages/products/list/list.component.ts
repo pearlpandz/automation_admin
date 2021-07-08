@@ -8,15 +8,15 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-user-list',
+  selector: 'app-product-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
   providers: [ConfirmationService, MessageService]
 })
-export class UserListComponent implements OnInit {
+export class ProductListComponent implements OnInit {
 
   breadcrumb: MenuItem[] = [
-    { label: 'Customers' },
+    { label: 'Product' },
     { label: 'List' },
   ];
 
@@ -35,59 +35,39 @@ export class UserListComponent implements OnInit {
     type: 'string',
     active: true
   }, {
-    field: 'email',
-    title: 'Email',
+    field: 'description',
+    title: 'Description',
     filterBy: 'input',
     type: 'string',
     active: true
   }, {
-    field: 'mobile',
-    title: 'Mobile',
+    field: 'quantity',
+    title: 'Quantity',
     filterBy: 'input',
     type: 'string',
     active: true
   },
   {
     field: 'isActive',
-    title: 'Is Verified?',
+    title: 'Is Active?',
     filterBy: 'input',
-    type: 'boolean',
-    active: true
-  },
-  {
-    field: 'createdAt',
-    title: 'Created Date',
-    filterBy: 'calendar',
-    type: 'date',
-    active: false
-  },
-  {
-    field: 'lastLogin',
-    title: 'Modified Date',
-    filterBy: 'calendar',
-    type: 'date',
+    type: 'string',
     active: false
   }]
 
   actions = [{
-    type: 'edit',
-    label: 'Edit User',
-    icon: 'pi pi-pencil',
-    isView: true
-  }, {
     type: 'delete',
     label: 'Delete User',
     icon: 'pi pi-trash',
     isView: true
   }];
+
   loading: boolean = false;
   isRowGroup: boolean = false;
 
 
   display: boolean = false;
   emailForm: FormGroup;
-
-  agents = [];
 
   constructor(
     public helper: HelperService,
@@ -97,22 +77,12 @@ export class UserListComponent implements OnInit {
     private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.getCustomers();
-    this.getAgents();
+    this.getProducts();
   }
 
-  getCustomers(): void {
-    this.loading = true;
-    this.http.get(`${URLS.USER.LIST}`).subscribe((users: any) => {
-      this.data = users;
-      this.loading = false;
-    })
-  }
-
-  getAgents(): void {
-    this.agents = [];
-    this.http.get(`${URLS.ADMIN.EXCEPT_AGENT_LIST}`).subscribe((res: any) => {
-      this.agents = res;
+  getProducts(): void {
+    this.http.get(`${URLS.PRODUCT.LIST}`).subscribe((products: any) => {
+      this.data = products.data;
     })
   }
 
@@ -143,22 +113,10 @@ export class UserListComponent implements OnInit {
           this.messageService.add({
             severity: 'success', summary: 'Deleted', detail: `${data.name} deleted successfully!`
           });
-          this.getCustomers();
+          this.getProducts();
         });
       }
     });
-  }
-
-  transferCustomer(otherAgentId, customerIds): void {
-    const _body = { otherAgentId, customerIds };
-    this.http.post(URLS.USER.TRANSFER, _body).subscribe((res: any) => {
-      this.messageService.add({
-        severity: 'success', summary: 'Deleted', detail: `Customers transfered successfully!`
-      });
-      setTimeout(() => {
-        this.getCustomers();
-      }, 1000);
-    })
   }
 
 }

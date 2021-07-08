@@ -1,11 +1,11 @@
 export const MENU = {
     admin: [
-        {
-            label: 'Customers',
-            routerLink: "/customer",
-            visible: true,
-            permission: 'customers' // module name
-        },
+        // {
+        //     label: 'Customers',
+        //     routerLink: "/customer",
+        //     visible: true,
+        //     permission: 'customers' // module name
+        // },
         // {
         //     label: 'Manufacturers',
         //     routerLink: "/manufacturer",
@@ -17,7 +17,13 @@ export const MENU = {
             routerLink: "/agent",
             visible: true,
             permission: 'agents' // module name
-        }
+        },
+        // {
+        //     label: 'Products',
+        //     routerLink: "/product",
+        //     visible: true,
+        //     permission: 'agents' // module name
+        // }
     ],
     agent: [
         {
