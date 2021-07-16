@@ -21,4 +21,7 @@ export const URLS = {
         SINGLE: `${BASE_URL}/product`,
         LIST: `${BASE_URL}/products`
     },
+    OTHERS: {
+        BASE_DEVICES: `${BASE_URL}/basedevices/list`
+    }
 }

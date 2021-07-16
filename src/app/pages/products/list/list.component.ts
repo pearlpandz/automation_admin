@@ -108,7 +108,7 @@ export class ProductListComponent implements OnInit {
       header: 'Confirmation',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        const url = `${URLS.USER.SINGLE}/${data.id}`;
+        const url = `${URLS.PRODUCT.SINGLE}/${data.id}`;
         this.http.delete(url).subscribe((res) => {
           this.messageService.add({
             severity: 'success', summary: 'Deleted', detail: `${data.name} deleted successfully!`

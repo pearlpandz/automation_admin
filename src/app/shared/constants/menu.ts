@@ -18,12 +18,12 @@ export const MENU = {
             visible: true,
             permission: 'agents' // module name
         },
-        // {
-        //     label: 'Products',
-        //     routerLink: "/product",
-        //     visible: true,
-        //     permission: 'agents' // module name
-        // }
+        {
+            label: 'Products',
+            routerLink: "/product",
+            visible: true,
+            permission: 'products' // module name
+        }
     ],
     agent: [
         {

@@ -42,18 +42,19 @@
                 <div class="card flex-box">
                     <h4>Configurations</h4>
                     <button pButton pRipple type="button" label="Add Configuration" class="p-button-text"
-                        icon="pi pi-check" (click)="addConfig()"></button>
+                        icon="pi pi-plus" (click)="addConfig()"></button>
                 </div>
                 <div class="card" formArrayName="configurations"
                     *ngFor="let config of configurations.controls; let i = index">
                     <div class="p-fluid p-formgrid p-grid" [formGroupName]="i">
                         <div class="p-field p-col-4">
-                            <label for="connectedWith">Connected With<span class="error">*</span></label>
-                            <input formControlName="connectedWith" id="connectedWith" type="text" pInputText>
-                        </div>
-                        <div class="p-field p-col-4">
                             <label for="switchNo">Switch No<span class="error">*</span></label>
                             <input formControlName="switchNo" id="switchNo" type="text" pInputText>
+                        </div>
+                        <div class="p-field p-col-4">
+                            <label for="connectedWith">Connected With<span class="error">*</span></label>
+                            <p-dropdown [options]="baseDevices" placeholder="Select any device"
+                                formControlName="connectedWith" id="connectedWith"></p-dropdown>
                         </div>
                     </div>
                 </div>

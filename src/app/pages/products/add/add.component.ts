@@ -27,6 +27,7 @@ export class AddProductComponent implements OnInit {
   isShow = false;
   id: any;
   configurations: FormArray;
+  baseDevices: any;
   // isActive = true;
 
   constructor(
@@ -48,14 +49,19 @@ export class AddProductComponent implements OnInit {
 
     this.addConfig();
 
-
-    console.log(this.form.value);
+    this.getBaseDevices();
 
     // only edit
     this.activateRoute.params.subscribe(params => {
       this.id = params['id'];
       if (this.id)
         this.getInfoById(this.id);
+    })
+  }
+
+  getBaseDevices(): void {
+    this.http.get(URLS.OTHERS.BASE_DEVICES).subscribe((res: any) => {
+      this.baseDevices = res?.data?.map(device => ({ label: device.name, value: device.id }))
     })
   }
 
@@ -92,32 +98,22 @@ export class AddProductComponent implements OnInit {
     if (values) {
       this.isProgress = true;
 
-      console.log(values);
-
-      // const _body = {
-      //   name: values.name,
-      //   email: values.email,
-      //   mobile: values.mobile,
-      //   address: values.address,
-      //   // isActive: this.isActive ? 1 : 0
-      // }
-
-      // if (this.id) {
-      //   this.edit(_body);
-      // } else {
-      //   this.add(_body);
-      // }
+      if (this.id) {
+        this.edit(values);
+      } else {
+        this.add(values);
+      }
     }
   }
 
   add(data): void {
-    this.http.post(`${URLS.USER.ADD}`, data).subscribe((res: any) => {
+    this.http.post(`${URLS.PRODUCT.SINGLE}`, data).subscribe((res: any) => {
       this.isProgress = false;
       this.isCompleted = true;
       this.messageService.add({
         severity: 'success', summary: 'Success', detail: `${data.name} created successfully!`
       });
-      this.router.navigateByUrl('/customer/list');
+      this._location.back();
     }, (error: HttpErrorResponse) => {
       this.isProgress = false;
       this.isCompleted = false;
@@ -125,13 +121,13 @@ export class AddProductComponent implements OnInit {
   }
 
   edit(data): void {
-    this.http.put(`${URLS.USER.EDIT}/${this.id}`, data).subscribe((res: any) => {
+    this.http.put(`${URLS.PRODUCT.SINGLE}/${this.id}`, data).subscribe((res: any) => {
       this.isProgress = false;
       this.isCompleted = true;
       this.messageService.add({
         severity: 'success', summary: 'Success', detail: `${data.name} updated successfully!`
       });
-      this.router.navigateByUrl('/customer/list');
+      this._location.back();
     }, (error: HttpErrorResponse) => {
       this.isProgress = false;
       this.isCompleted = false;
