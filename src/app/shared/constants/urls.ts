@@ -1,4 +1,5 @@
 export const BASE_URL = `http://165.22.208.52:8000`;
+// export const BASE_URL = `http://localhost:8000`;
 
 export const URLS = {
     LOGIN: `${BASE_URL}/admin/login`,
@@ -22,6 +23,7 @@ export const URLS = {
         LIST: `${BASE_URL}/products`
     },
     OTHERS: {
-        BASE_DEVICES: `${BASE_URL}/basedevices/list`
+        BASE_DEVICES: `${BASE_URL}/basedevices/list`,
+        SWITCH_TYPES: `${BASE_URL}/switch/list`,
     }
 }

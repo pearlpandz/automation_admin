@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
-import { FormControl, FormGroup } from '@angular/forms';
-import { CommonService } from 'src/app/shared/services/http.service';
+import { FormGroup } from '@angular/forms';
 import { URLS } from 'src/app/shared/constants/urls';
 import { HelperService } from 'src/app/shared/services/helper.service';
 import { HttpClient } from '@angular/common/http';
@@ -13,7 +12,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./list.component.scss'],
   providers: [ConfirmationService, MessageService]
 })
-export class ProductListComponent implements OnInit {
+export class ProductListComponent implements OnInit, OnDestroy {
 
   breadcrumb: MenuItem[] = [
     { label: 'Product' },
@@ -41,11 +40,60 @@ export class ProductListComponent implements OnInit {
     type: 'string',
     active: true
   }, {
-    field: 'quantity',
-    title: 'Quantity',
+    field: 'note',
+    title: 'Notes',
     filterBy: 'input',
     type: 'string',
     active: true
+  },
+  {
+    field: 'noOfConfigs',
+    title: 'No Of Configs',
+    filterBy: 'input',
+    type: 'string',
+    active: true
+  },
+  {
+    field: 'producedStock',
+    title: 'Produced Stock',
+    filterBy: 'input',
+    type: 'string',
+    active: true
+  },
+  {
+    field: 'Sold Stock',
+    title: 'soldStock',
+    filterBy: 'input',
+    type: 'string',
+    active: true
+  },
+  {
+    field: 'balanceStock',
+    title: 'Balance Stock',
+    filterBy: 'input',
+    type: 'string',
+    active: true
+  },
+  {
+    field: 'actualSales',
+    title: 'Actual Sales',
+    filterBy: 'input',
+    type: 'string',
+    active: true
+  },
+  {
+    field: 'createdAt',
+    title: 'Created At',
+    filterBy: 'input',
+    type: 'calendar',
+    active: true
+  },
+  {
+    field: 'deletedAt',
+    title: 'Deleted At',
+    filterBy: 'calendar',
+    type: 'string',
+    active: false
   },
   {
     field: 'isActive',
@@ -56,8 +104,18 @@ export class ProductListComponent implements OnInit {
   }]
 
   actions = [{
+    type: 'producedStocks',
+    label: 'Add Prodcuced Stocks',
+    icon: 'pi pi-plus',
+    isView: true
+  }, {
+    type: 'edit',
+    label: 'Edit',
+    icon: 'pi pi-pencil',
+    isView: true
+  }, {
     type: 'delete',
-    label: 'Delete User',
+    label: 'Delete',
     icon: 'pi pi-trash',
     isView: true
   }];
@@ -65,9 +123,9 @@ export class ProductListComponent implements OnInit {
   loading: boolean = false;
   isRowGroup: boolean = false;
 
-
   display: boolean = false;
-  emailForm: FormGroup;
+  producedStock = 0;
+  selectedItem: any;
 
   constructor(
     public helper: HelperService,
@@ -89,16 +147,25 @@ export class ProductListComponent implements OnInit {
   actionEmitter(action: string, data: any) {
     switch (action) {
       case 'edit':
-        this.router.navigateByUrl(`customer/edit/${data.id}`);
+        this.router.navigateByUrl(`product/edit/${data.id}`);
         break;
 
       case 'delete':
         this.delete(data);
         break;
 
+      case 'producedStocks':
+        this.addProducedStocks(data);
+        break;
+
       default:
         break;
     }
+  }
+
+  addProducedStocks(data: any): void {
+    this.selectedItem = data;
+    this.display = true;
   }
 
 
@@ -117,6 +184,20 @@ export class ProductListComponent implements OnInit {
         });
       }
     });
+  }
+
+  addProducedStock(): void {
+    const url = `${URLS.PRODUCT.SINGLE}/${this.selectedItem.id}/updateProducedStocks`;
+    this.http.put(url, { quantity: this.producedStock }).subscribe((res: any) => {
+      console.log(res);
+      this.getProducts();
+      this.display = false;
+    })
+  }
+
+  ngOnDestroy(): void {
+    this.selectedItem = {};
+    this.producedStock = 0;
   }
 
 }

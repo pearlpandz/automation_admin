@@ -57,7 +57,7 @@
         <tr>
             <th *ngIf="isRowSelect" style="width: 3rem"></th>
             <th *ngIf="isRowExpand" style="width: 3rem"></th>
-            <th class="fixed-column" *ngIf="isRowAction">Actions</th>
+            <th class="fixed-column" style="width: 200px; background-color: #ffffff" *ngIf="isRowAction">Actions</th>
             <ng-container *ngIf="isRowGroup else normalColumn">
                 <th *ngFor="let col of columns">{{col.title}}</th>
             </ng-container>
@@ -72,7 +72,7 @@
                 <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
             </th>
             <th *ngIf="isRowExpand" style="width: 3rem"></th>
-            <th class="fixed-column" *ngIf="isRowAction"></th>
+            <th class="fixed-column" style="width: 200px; background-color: #ffffff" *ngIf="isRowAction"></th>
             <th *ngFor="let col of columns" [ngSwitch]="col.filterBy">
                 <input *ngSwitchCase="'input'" pInputText type="text"
                     (input)="dt.filter($event.target.value, col.field, 'contains')"
@@ -96,7 +96,7 @@
                     class="p-button-text p-button-rounded p-button-plain"
                     [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
             </td>
-            <th class="fixed-column" *ngIf="isRowAction">
+            <th class="fixed-column" style="width: 200px; background-color: #ffffff" *ngIf="isRowAction">
                 <ul class="action-icons" *ngIf="actions.length > 0">
                     <li *ngFor="let action of actions">
                         <a *ngIf="action.isView" (click)="rowAction(action.type,rowData)" class="pointer"

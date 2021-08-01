@@ -17,3 +17,14 @@
 
 <p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text">
 </p-confirmDialog>
+
+<p-dialog header="Update Produced Stock for '{{selectedItem?.name | titlecase}}'" [(visible)]="display" [style]="{width: '50vw', paddingBottom: '25px'}" [baseZIndex]="10000">
+    <h5>Existing Produced Stocks: {{selectedItem?.producedStock}}</h5>
+    
+    <h5>Add Recently Produced Stocks </h5>
+    <input type="number" [(ngModel)]="producedStock" pInputText />
+    <ng-template pTemplate="footer">
+        <p-button (click)="display=false" label="Cancel" styleClass="p-button-secondary p-button-rounded"></p-button>
+        <p-button (click)="addProducedStock()" label="Update Stocks" styleClass="p-button-rounded"></p-button>
+    </ng-template>
+</p-dialog>

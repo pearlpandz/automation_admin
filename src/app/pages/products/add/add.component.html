@@ -33,8 +33,8 @@
                         </div>
 
                         <div class="p-field p-col-4">
-                            <label for="quantity">Quantity<span class="error">*</span></label>
-                            <input formControlName="quantity" id="quantity" type="number" pInputText>
+                            <label for="note">Notes</label>
+                            <input formControlName="note" id="note" type="text" pInputText>
                         </div>
 
                     </div>
@@ -44,17 +44,38 @@
                     <button pButton pRipple type="button" label="Add Configuration" class="p-button-text"
                         icon="pi pi-plus" (click)="addConfig()"></button>
                 </div>
-                <div class="card" formArrayName="configurations"
-                    *ngFor="let config of configurations.controls; let i = index">
-                    <div class="p-fluid p-formgrid p-grid" [formGroupName]="i">
+                <div *ngIf="configurations">
+                    <div class="p-fluid p-formgrid p-grid">
                         <div class="p-field p-col-4">
-                            <label for="switchNo">Switch No<span class="error">*</span></label>
-                            <input formControlName="switchNo" id="switchNo" type="text" pInputText>
+                            <label class="margin-zero">Switch Type</label>
+                        </div>
+                        <div class="p-field p-col-3">
+                            <label class="margin-zero">Switch No</label>
                         </div>
                         <div class="p-field p-col-4">
-                            <label for="connectedWith">Connected With<span class="error">*</span></label>
-                            <p-dropdown [options]="baseDevices" placeholder="Select any device"
-                                formControlName="connectedWith" id="connectedWith"></p-dropdown>
+                            <label class="margin-zero">Connected With</label>
+                        </div>
+                        <div class="p-field p-col-1">
+
+                        </div>
+                    </div>
+                    <div class="card" formArrayName="configurations"
+                        *ngFor="let config of configurations.controls; let i = index">
+                        <div class="p-fluid p-formgrid p-grid" [formGroupName]="i">
+                            <div class="p-field p-col-4">
+                                <p-dropdown [options]="switchTypes" placeholder="Select any type"
+                                    formControlName="switchType" id="switchType"></p-dropdown>
+                            </div>
+                            <div class="p-field p-col-3">
+                                <input formControlName="switchNo" id="switchNo" type="number" pInputText>
+                            </div>
+                            <div class="p-field p-col-4">
+                                <p-dropdown [options]="baseDevices" placeholder="Select any device"
+                                    formControlName="connectedWith" id="connectedWith"></p-dropdown>
+                            </div>
+                            <div class="p-field p-col-1 flex align-center">
+                                <a (click)="removeItem(i)" class="pointer"><i class="pi pi-trash" pTooltip="Remove Configuration" tooltipPosition="bottom"></i></a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -68,3 +89,6 @@
 
     </div>
 </div>
+
+<p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text">
+</p-confirmDialog>
