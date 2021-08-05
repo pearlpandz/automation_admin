@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
       sessionStorage.setItem('qa_username', res.data.name);
       sessionStorage.setItem('qa_userid', res.data.id);
       sessionStorage.setItem('qa_role', res.data.role);
-      this.router.navigateByUrl('/customer')
+      this.router.navigateByUrl('/product')
     }, (error) => {
       this.isProgress = false;
       this.isCompleted = false;

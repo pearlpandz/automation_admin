@@ -61,8 +61,8 @@ export class ProductListComponent implements OnInit, OnDestroy {
     active: true
   },
   {
-    field: 'Sold Stock',
-    title: 'soldStock',
+    field: 'soldStock',
+    title: 'Sold Stock',
     filterBy: 'input',
     type: 'string',
     active: true
@@ -84,15 +84,15 @@ export class ProductListComponent implements OnInit, OnDestroy {
   {
     field: 'createdAt',
     title: 'Created At',
-    filterBy: 'input',
-    type: 'calendar',
+    filterBy: 'calendar',
+    type: 'date',
     active: true
   },
   {
     field: 'deletedAt',
     title: 'Deleted At',
     filterBy: 'calendar',
-    type: 'string',
+    type: 'date',
     active: false
   },
   {
