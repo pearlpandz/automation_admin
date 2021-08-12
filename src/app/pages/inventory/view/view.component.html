@@ -1,0 +1,20 @@
+<p-toast></p-toast>
+
+<div class="header-top">
+    <app-header></app-header>
+    <app-breadcrumb [title]="'Inventory'" [items]="breadcrumb"></app-breadcrumb>
+</div>
+
+<div class="container-fluid">
+    <div class="page-view add-page">
+
+        <div class="title flex-box">
+            <h1> <span (click)="_location.back()" class="pointer"><i class="pi pi-chevron-left"></i> Back</span> Create
+                New Proudct
+            </h1>
+        </div>
+
+        {{data | json}}
+
+    </div>
+</div>

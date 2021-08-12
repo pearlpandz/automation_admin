@@ -150,14 +150,21 @@ export class UserListComponent implements OnInit {
   }
 
   transferCustomer(otherAgentId, customerIds): void {
-    const _body = { otherAgentId, customerIds };
-    this.http.post(URLS.USER.TRANSFER, _body).subscribe((res: any) => {
-      this.messageService.add({
-        severity: 'success', summary: 'Deleted', detail: `Customers transfered successfully!`
-      });
-      setTimeout(() => {
-        this.getCustomers();
-      }, 1000);
+    this.confirmationService.confirm({
+      message: 'Are you sure that you want to transfer?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        const _body = { otherAgentId, customerIds };
+        this.http.post(URLS.USER.TRANSFER, _body).subscribe((res: any) => {
+          this.messageService.add({
+            severity: 'success', summary: 'Deleted', detail: `Customers transfered successfully!`
+          });
+          setTimeout(() => {
+            this.getCustomers();
+          }, 1000);
+        })
+      }
     })
   }
 

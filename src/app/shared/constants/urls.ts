@@ -25,5 +25,11 @@ export const URLS = {
     OTHERS: {
         BASE_DEVICES: `${BASE_URL}/basedevices/list`,
         SWITCH_TYPES: `${BASE_URL}/switch/list`,
+    },
+    INVENTORY: {
+        SINGLE: `${BASE_URL}/inventory`,
+        LIST_ADMIN: `${BASE_URL}/inventory/list/admin`,
+        LIST_AGENT: `${BASE_URL}/inventory/list/agent`,
+        MOVE_PRODUCT_TO_AGENT: `${BASE_URL}/inventory/moveProductToAgent`
     }
 }

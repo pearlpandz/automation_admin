@@ -51,9 +51,16 @@ export class DatatableComponent implements OnInit, OnChanges {
   agentList;
   @Output() transferCustomerEmitter: EventEmitter<any> = new EventEmitter();
 
+  @Input() isTransferProduct: boolean;
+  @Output() transferProductEmitter: EventEmitter<any> = new EventEmitter();
+
+
   // @Input() groupByFieldName:string;
   groupByFieldName = 'fiscalMonth';
   rowGroupMetadata: any;
+
+  @Input() statusList: any[];
+  @Output() statusEmitter: EventEmitter<any> = new EventEmitter();
 
   constructor(
     private router: Router
@@ -65,7 +72,11 @@ export class DatatableComponent implements OnInit, OnChanges {
 
   ngOnChanges() {
     this.updateRowGroupMetaData();
-    this.getAgentList();
+    if (this.isTransferCustomer) {
+      this.getAgentList();
+    } else {
+      this.getAgentListForProductTransform();
+    }
   }
 
 
@@ -164,11 +175,35 @@ export class DatatableComponent implements OnInit, OnChanges {
     })
   }
 
+  getAgentListForProductTransform(): void {
+    this.agentList = [];
+    this.agents?.forEach(agent => {
+      this.agentList.push({
+        label: `${agent.name} (${agent.code})`,
+        command: () => {
+          this.transferProduct(agent.id);
+        }
+      })
+    })
+  }
+
   transferCustomer(agentId: number): void {
     this.transferCustomerEmitter.emit({
       otherAgentId: agentId,
       customerIds: this.selectedRow?.map(a => a.id)
     });
+  }
+
+  transferProduct(agentId: number): void {
+    this.transferProductEmitter.emit({
+      otherAgentId: agentId,
+      productIds: this.selectedRow?.map(a => a.inventoryId)
+    });
+  }
+
+  statusChange(status: string): void {
+    console.log(status);
+    this.statusEmitter.emit(status);
   }
 
 }

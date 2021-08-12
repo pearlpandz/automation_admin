@@ -187,9 +187,8 @@ export class ProductListComponent implements OnInit, OnDestroy {
   }
 
   addProducedStock(): void {
-    const url = `${URLS.PRODUCT.SINGLE}/${this.selectedItem.id}/updateProducedStocks`;
-    this.http.put(url, { quantity: this.producedStock }).subscribe((res: any) => {
-      console.log(res);
+    const url = `${URLS.INVENTORY.SINGLE}`;
+    this.http.post(url, { productId: this.selectedItem.id, count: this.producedStock }).subscribe((res: any) => {
       this.getProducts();
       this.display = false;
     })

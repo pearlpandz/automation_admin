@@ -71,7 +71,7 @@
                             </div>
                             <div class="p-field p-col-4">
                                 <p-dropdown [options]="baseDevices" placeholder="Select any device"
-                                    formControlName="connectedWith" id="connectedWith"></p-dropdown>
+                                    formControlName="connectedWith" [showClear]="true" id="connectedWith"></p-dropdown>
                             </div>
                             <div class="p-field p-col-1 flex align-center">
                                 <a (click)="removeItem(i)" class="pointer"><i class="pi pi-trash" pTooltip="Remove Configuration" tooltipPosition="bottom"></i></a>

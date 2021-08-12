@@ -5,7 +5,7 @@ import * as moment from 'moment';
 export class StringToDatePipe implements PipeTransform {
     transform(value: string): any {
         if (value) {
-            const date = moment(value).format('MM/DD/YYYY');
+            const date = moment(value).format('MM/DD/YYYY hh:mm:ss a');
             return date;
         } else {
             return ''

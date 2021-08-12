@@ -13,9 +13,19 @@
             <div class="p-d-flex">
 
                 <ng-container *ngIf="isTransferCustomer">
-                    <p-splitButton label="Transfer Customers To" [model]="agentList"
-                        [disabled]="selectedRow.length<1">
+                    <p-splitButton label="Transfer Customers To" [model]="agentList" [disabled]="selectedRow.length<1" class="p-ml-2">
                     </p-splitButton>
+                </ng-container>
+
+                <ng-container *ngIf="isTransferProduct">
+                    <p-splitButton label="Transfer Products To" [model]="agentList" [disabled]="selectedRow.length<1" class="p-ml-2">
+                    </p-splitButton>
+                </ng-container>
+
+                <ng-container *ngIf="statusList">
+                    <p-selectButton [options]="statusList" (onChange)="statusChange($event.value)"
+                        [(ngModel)]="statusList[0]" optionLabel="label" optionValue="value" class="p-ml-2">
+                    </p-selectButton>
                 </ng-container>
 
                 <ng-container *ngIf="isAdd">
@@ -87,9 +97,9 @@
     </ng-template>
 
     <ng-template pTemplate="body" let-rowData let-columns="columns" let-expanded="expanded" let-rowIndex="rowIndex">
-        <tr class="pointer" [style.background-color]="rowIndex.checked ? 'rgba(255, 136, 0, 0.3)':'' ">
+        <tr class="pointer" [class.active]="rowIndex['checked']" [pSelectableRowIndex]="rowIndex">
             <td *ngIf="isRowSelect">
-                <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+                <p-tableCheckbox [value]="rowData" #rowIndex (onChange)="!rowIndex['checked']"></p-tableCheckbox>
             </td>
             <td *ngIf="isRowExpand">
                 <button type="button" pButton pRipple [pRowToggler]="rowData"
