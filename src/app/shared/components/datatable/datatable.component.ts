@@ -54,13 +54,14 @@ export class DatatableComponent implements OnInit, OnChanges {
   @Input() isTransferProduct: boolean;
   @Output() transferProductEmitter: EventEmitter<any> = new EventEmitter();
 
-
   // @Input() groupByFieldName:string;
   groupByFieldName = 'fiscalMonth';
   rowGroupMetadata: any;
 
   @Input() statusList: any[];
   @Output() statusEmitter: EventEmitter<any> = new EventEmitter();
+
+
 
   constructor(
     private router: Router
@@ -175,6 +176,13 @@ export class DatatableComponent implements OnInit, OnChanges {
     })
   }
 
+  transferCustomer(agentId: number): void {
+    this.transferCustomerEmitter.emit({
+      otherAgentId: agentId,
+      customerIds: this.selectedRow?.map(a => a.id)
+    });
+  }
+
   getAgentListForProductTransform(): void {
     this.agentList = [];
     this.agents?.forEach(agent => {
@@ -185,13 +193,6 @@ export class DatatableComponent implements OnInit, OnChanges {
         }
       })
     })
-  }
-
-  transferCustomer(agentId: number): void {
-    this.transferCustomerEmitter.emit({
-      otherAgentId: agentId,
-      customerIds: this.selectedRow?.map(a => a.id)
-    });
   }
 
   transferProduct(agentId: number): void {

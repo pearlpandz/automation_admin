@@ -104,11 +104,6 @@ export class ProductListComponent implements OnInit, OnDestroy {
   }]
 
   actions = [{
-    type: 'producedStocks',
-    label: 'Add Prodcuced Stocks',
-    icon: 'pi pi-plus',
-    isView: true
-  }, {
     type: 'edit',
     label: 'Edit',
     icon: 'pi pi-pencil',
@@ -123,9 +118,6 @@ export class ProductListComponent implements OnInit, OnDestroy {
   loading: boolean = false;
   isRowGroup: boolean = false;
 
-  display: boolean = false;
-  producedStock = 0;
-  selectedItem: any;
 
   constructor(
     public helper: HelperService,
@@ -154,20 +146,10 @@ export class ProductListComponent implements OnInit, OnDestroy {
         this.delete(data);
         break;
 
-      case 'producedStocks':
-        this.addProducedStocks(data);
-        break;
-
       default:
         break;
     }
   }
-
-  addProducedStocks(data: any): void {
-    this.selectedItem = data;
-    this.display = true;
-  }
-
 
   delete(data: any): void {
     this.confirmationService.confirm({
@@ -186,17 +168,8 @@ export class ProductListComponent implements OnInit, OnDestroy {
     });
   }
 
-  addProducedStock(): void {
-    const url = `${URLS.INVENTORY.SINGLE}`;
-    this.http.post(url, { productId: this.selectedItem.id, count: this.producedStock }).subscribe((res: any) => {
-      this.getProducts();
-      this.display = false;
-    })
-  }
-
   ngOnDestroy(): void {
-    this.selectedItem = {};
-    this.producedStock = 0;
+    this.data = [];
   }
 
 }

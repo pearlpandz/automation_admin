@@ -64,14 +64,15 @@ export class ProductionListComponent implements OnInit, OnDestroy {
   isRowGroup: boolean = false;
 
   display: boolean = false;
-  producedStock = 0;
+  producedStock;
+  productId;
   selectedItem: any;
 
   statusList: any[];
   selectedStatus;
   isRowSelect = false;
 
-  agents = [];
+  products;
 
   constructor(
     public helper: HelperService,
@@ -82,6 +83,7 @@ export class ProductionListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getProductionHistory();
+    this.getProducts();
   }
 
   getProductionHistory(): void {
@@ -90,8 +92,31 @@ export class ProductionListComponent implements OnInit, OnDestroy {
     })
   }
 
+  getProducts(): void {
+    this.products = [];
+    this.http.get(`${URLS.PRODUCT.LIST}`).subscribe((products: any) => {
+      this.products = products.data?.map(a => ({
+        label: `${a.name} (${a.code})`,
+        value: a.id
+      }));
+    })
+  }
+
+  addProducedStocks(isOpen: boolean): void {
+    this.display = isOpen;
+  }
+
+  addProducedStock(): void {
+    const url = `${URLS.INVENTORY.SINGLE}`;
+    this.http.post(url, { productId: this.productId, count: this.producedStock }).subscribe((res: any) => {
+      this.getProductionHistory();
+      this.display = false;
+    })
+  }
+
   ngOnDestroy(): void {
     this.data = [];
+    this.producedStock = 0;
   }
 
 }

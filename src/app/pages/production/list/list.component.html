@@ -9,7 +9,8 @@
     <div class="page-view">
         <app-datatable [dataKey]="dataKey" [data]="data" [columns]="columns" [loading]="loading" [title]="'Production'"
             [isRowGroup]="isRowGroup" [isExport]=true [isShowDisplaySettings]=true [isRowSelect]="isRowSelect"
-            [module]="'production'" [isColumnFilter]="true">
+            [isPopup]="true" (isPopupEmitter)="addProducedStocks($event)" [module]="'production'"
+            [isColumnFilter]="true">
         </app-datatable>
     </div>
 </div>
@@ -17,14 +18,23 @@
 <p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text">
 </p-confirmDialog>
 
-<p-dialog header="Update Produced Stock for '{{selectedItem?.name | titlecase}}'" [(visible)]="display"
-    [style]="{width: '50vw', paddingBottom: '25px'}" [baseZIndex]="10000">
-    <h5>Existing Produced Stocks: {{selectedItem?.producedStock}}</h5>
+<p-dialog header="Add Produced Stock" [(visible)]="display" [style]="{width: '50vw', paddingBottom: '25px'}"
+    [baseZIndex]="10000">
+    
+    <div class="p-field p-col-4">
+        <label for="name">Product<span class="error">*</span></label>
+        <p-dropdown [options]="products" placeholder="Select any product" [(ngModel)]="productId" id="productId">
+        </p-dropdown>
+    </div>
 
-    <h5>Add Recently Produced Stocks </h5>
-    <input type="number" [(ngModel)]="producedStock" pInputText />
+    <div class="p-field p-col-4">
+        <label for="name">Produced Stocks<span class="error">*</span></label>
+        <input type="number" [(ngModel)]="producedStock" pInputText />
+    </div>
+
     <ng-template pTemplate="footer">
         <p-button (click)="display=false" label="Cancel" styleClass="p-button-secondary p-button-rounded"></p-button>
-        <p-button (click)="addProducedStock()" label="Update Stocks" styleClass="p-button-rounded"></p-button>
+        <p-button [disabled]="!producedStock || !productId" (click)="addProducedStock()" label="Update Stocks" styleClass="p-button-rounded"></p-button>
     </ng-template>
+
 </p-dialog>
