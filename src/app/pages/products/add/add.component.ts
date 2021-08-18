@@ -45,7 +45,7 @@ export class AddProductComponent implements OnInit {
     this.form = this.fb.group({
       name: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
-      note: new FormControl('', Validators.required),
+      note: new FormControl(''),
       configurations: this.fb.array([])
     });
 

@@ -34,7 +34,8 @@
 
                         <div class="p-field p-col-4">
                             <label for="note">Notes</label>
-                            <input formControlName="note" id="note" type="text" pInputText>
+                            <textarea id="note" formControlName="note" rows="5" cols="30" pInputTextarea
+                                autoResize="autoResize" style="width: 100%;"></textarea>
                         </div>
 
                     </div>
@@ -74,7 +75,8 @@
                                     formControlName="connectedWith" [showClear]="true" id="connectedWith"></p-dropdown>
                             </div>
                             <div class="p-field p-col-1 flex align-center">
-                                <a (click)="removeItem(i)" class="pointer"><i class="pi pi-trash" pTooltip="Remove Configuration" tooltipPosition="bottom"></i></a>
+                                <a (click)="removeItem(i)" class="pointer"><i class="pi pi-trash"
+                                        pTooltip="Remove Configuration" tooltipPosition="bottom"></i></a>
                             </div>
                         </div>
                     </div>

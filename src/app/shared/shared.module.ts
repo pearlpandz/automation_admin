@@ -35,6 +35,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { BlockUIModule } from 'primeng/blockui';
 import { SplitButtonModule } from 'primeng/splitbutton';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 import { StringToDatePipe } from './pipes/date.pipes';
 import { AddPercentagePipe } from './pipes/percentage.pipe';
@@ -86,7 +87,8 @@ import { HelperService } from './services/helper.service';
     ConfirmDialogModule,
     DynamicDialogModule,
     BlockUIModule,
-    SplitButtonModule
+    SplitButtonModule,
+    InputTextareaModule
   ],
   exports: [
     CalendarModule,
@@ -126,7 +128,8 @@ import { HelperService } from './services/helper.service';
     ConfirmDialogModule,
     DynamicDialogModule,
     BlockUIModule,
-    SplitButtonModule
+    SplitButtonModule,
+    InputTextareaModule
   ],
   providers: [
     HelperService

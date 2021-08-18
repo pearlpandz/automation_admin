@@ -31,5 +31,8 @@ export const URLS = {
         LIST_ADMIN: `${BASE_URL}/inventory/list/admin`,
         LIST_AGENT: `${BASE_URL}/inventory/list/agent`,
         MOVE_PRODUCT_TO_AGENT: `${BASE_URL}/inventory/moveProductToAgent`
+    },
+    PRODUCTION: {
+        LIST: `${BASE_URL}/production/list`
     }
 }

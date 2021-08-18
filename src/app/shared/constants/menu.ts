@@ -19,6 +19,12 @@ export const MENU = {
             permission: 'products' // module name
         },
         {
+            label: 'Production',
+            routerLink: "/production",
+            visible: true,
+            permission: 'production' // module name
+        },
+        {
             label: 'Inventory',
             routerLink: "/inventory",
             visible: true,
