@@ -148,7 +148,7 @@ export class InventoryProductListComponent implements OnInit, OnDestroy {
   ]
 
   actions = [
-    //   {
+    // {
     //   type: 'view',
     //   label: 'View Product',
     //   icon: 'pi pi-eye',
@@ -174,6 +174,7 @@ export class InventoryProductListComponent implements OnInit, OnDestroy {
   isRowSelect = false;
 
   agents = [];
+  isRowAction = false;
 
   constructor(
     public helper: HelperService,
@@ -188,22 +189,39 @@ export class InventoryProductListComponent implements OnInit, OnDestroy {
     if (Number(sessionStorage.getItem('qa_role')) == 3) {
       // For Agent
       this.statusList = [
-        { label: 'All', value: 'all' },
-        { label: 'Assigned', value: 'available' },
+        { label: 'Purchased', value: 'all' },
+        { label: 'To be sold', value: 'available' },
         { label: 'Sold', value: 'sold' }
       ]
       this.selectedStatus = this.statusList[0].value;
       this.getProducts();
+
+      this.actions = [{
+        type: 'view',
+        label: 'View Product',
+        icon: 'pi pi-eye',
+        isView: true
+      }
+        // {
+        //   type: 'report',
+        //   label: 'Report Product',
+        //   icon: 'pi pi-eye',
+        //   isView: true
+        // }
+      ];
+      this.isRowAction = true;
     } else {
       // For Admin and Manufacturer
       this.statusList = [
-        { label: 'All', value: 'all' },
-        { label: 'Un Assigned', value: 'new' },
-        { label: 'Assigned', value: 'available' },
+        { label: 'Produced', value: 'all' },
+        { label: 'Balanced', value: 'new' },
+        { label: 'To be sold', value: 'available' },
         { label: 'Sold', value: 'sold' }
       ];
       this.selectedStatus = this.statusList[0].value;
       this.getProducts();
+      this.actions = [];
+      this.isRowAction = false;
     }
   }
 

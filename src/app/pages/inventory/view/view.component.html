@@ -9,12 +9,143 @@
     <div class="page-view add-page">
 
         <div class="title flex-box">
-            <h1> <span (click)="_location.back()" class="pointer"><i class="pi pi-chevron-left"></i> Back</span> Create
-                New Proudct
+            <h1> <span (click)="_location.back()" class="pointer"><i class="pi pi-chevron-left"></i> Back</span> Product
+                Details Page
             </h1>
         </div>
 
-        {{data | json}}
+        <div class="p-grid p-20">
+            <div class="p-col-12 mb-20">
+                <h4>Product Info</h4>
+                <hr />
+                <h5 style="font-weight: 600;">Product Name: <strong>{{data.product.name}}</strong></h5>
+                <h5 style="font-weight: 600;">Product Code: <strong>{{data.product.code}}</strong></h5>
+                <h5 style="font-weight: 600;">No of Product Configurations:
+                    <strong>{{data.product.noOfConfigs}}</strong>
+                </h5>
+            </div>
+            <div class="p-col-12 mb-20" *ngIf="data.product.noOfConfigs > 0">
+                <h4>Product Configuration</h4>
+                <hr />
+
+                <p-table [value]="data.configurations" responsiveLayout="scroll">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>S.No</th>
+                            <th>SwitchType</th>
+                            <th>Switch No</th>
+                            <th>Connected With</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowIndex="rowIndex" let-config>
+                        <tr>
+                            <td>{{rowIndex+1}}</td>
+                            <td>{{config.switchType}}</td>
+                            <td>{{config.switchNo}}</td>
+                            <td>{{config.connectedWith}}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+            <div class="p-col-12" *ngIf="data.status == 'sold'">
+                <h4>Transaction Info</h4>
+                <hr />
+
+                <div class="p-grid">
+                    <div class="p-col-12" *ngIf="data.customer">
+                        <h5 style="margin-top: 0"><u>Customer Details</u></h5>
+                        <h5 style="font-weight: 600;">Name: <strong>{{data.customer.name}}</strong></h5>
+                        <h5 style="font-weight: 600;">Delivery Address:
+                            <strong>{{data.customer.deliveryAddress}}</strong>
+                        </h5>
+                        <h5 style="font-weight: 600;">Contact No: <strong>{{data.customer.deliveryContactNo}}</strong>
+                        </h5>
+                        <h5 style="font-weight: 600;">Price on Delivery:
+                            <strong>{{data.customer.deliveryPrice}}</strong>
+                        </h5>
+                    </div>
+
+                    <div class="p-col-6" *ngIf="data.sellerInfo">
+                        <h5 style="margin-top: 0"><u>Sales Info</u></h5>
+                        <h5 style="font-weight: 600;">Sold At: <strong>{{data.soldAt | StrToDate}}</strong></h5>
+                        <h5 style="font-weight: 600;">Sold By (Agent): <strong>{{data.sellerInfo.soldByName}}</strong>
+                        </h5>
+                        <h5 style="font-weight: 600;">Contact (Email): <strong>{{data.sellerInfo.email}}</strong></h5>
+                        <h5 style="font-weight: 600;">Contact (Mobile): <strong>{{data.sellerInfo.mobile}}</strong></h5>
+                    </div>
+
+                    <div class="p-col-6" *ngIf="data.installerInfo">
+                        <h5 style="margin-top: 0"><u>Installation Info</u></h5>
+                        <h5 style="font-weight: 600;">Installed At: <strong>{{data.installationAt | StrToDate}}</strong>
+                        </h5>
+                        <h5 style="font-weight: 600;">Installed By (Agent):
+                            <strong>{{data.installerInfo.installedByName}}</strong>
+                        </h5>
+                        <h5 style="font-weight: 600;">Contact (Email): <strong>{{data.installerInfo.email}}</strong>
+                        </h5>
+                        <h5 style="font-weight: 600;">Contact (Mobile): <strong>{{data.installerInfo.mobile}}</strong>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-submit" *ngIf="isAgent && !data.installerInfo" style="width: 100%;">
+                <button pButton pRipple type="button" label="Sell to Customer" class="p-button-rounded my-btn mr-5"
+                    iconPos="right" (click)="display=true" *ngIf="data.status != 'sold'"></button>
+
+                <button pButton pRipple type="button" label="Install Product in Customer Place"
+                    class="p-button-rounded my-btn" iconPos="right" (click)="install()"
+                    *ngIf="data.status=='sold' && !data.installerInfo"></button>
+            </div>
+        </div>
+
 
     </div>
 </div>
+
+<p-dialog header="Sell to Customer" [(visible)]="display" [style]="{width: '50vw'}" [draggable]="false"
+    [resizable]="false">
+
+    <form [formGroup]="transaction" (ngSubmit)="submit()">
+        <div class="form-elements">
+            <div class="card">
+                <div class="p-fluid p-formgrid p-grid">
+                    <div class="p-field p-col-12">
+                        <label for="customerId">Customer<span class="error">*</span></label>
+                        <p-dropdown formControlName="customerId" [options]="customers" placeholder="Select a Customer"
+                            [showClear]="true" appendTo="body">
+                        </p-dropdown>
+                    </div>
+
+                    <div class="p-field p-col-12">
+                        <label for="price">Price<span class="error">*</span></label>
+                        <input formControlName="price" id="price" type="number" pInputText>
+                    </div>
+
+                    <div class="p-field p-col-12">
+                        <label for="deliveryAddress">Delivery Address<span class="error">*</span></label>
+                        <input formControlName="deliveryAddress" id="deliveryAddress" type="text" pInputText>
+                    </div>
+
+                    <div class="p-field p-col-12">
+                        <label for="contactNo">Contact Number<span class="error">*</span></label>
+                        <input formControlName="contactNo" id="contactNo" type="text" pInputText>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-submit">
+            <button pButton pRipple type="submit" label="Sell" class="p-button-rounded my-btn mr-10" iconPos="right"
+                [disabled]="transaction.invalid || isProgress"
+                [icon]="isCompleted ? 'pi pi-check' : isProgress ? 'pi pi-spin pi-spinner' : 'pi' "></button>
+
+            <button pButton pRipple type="button" label="Cancel" class="p-button-rounded my-btn p-button-secondary"
+                (click)="display=false"></button>
+        </div>
+    </form>
+
+</p-dialog>
+
+
+<p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text">
+</p-confirmDialog>

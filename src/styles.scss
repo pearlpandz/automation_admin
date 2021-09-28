@@ -139,14 +139,6 @@ textarea:hover {
   margin-left: 10px !important;
 }
 
-.mb-0 {
-  margin-bottom: 0 !important;
-}
-
-.mb-50 {
-  margin-bottom: 50px;
-}
-
 .mt-5 {
   margin-top: 5px;
 }
@@ -155,8 +147,20 @@ textarea:hover {
   margin-top: 20px;
 }
 
+.mb-0 {
+  margin-bottom: 0 !important;
+}
+
+.mb-10 {
+  margin-bottom: 10px;
+}
+
 .mb-20 {
   margin-bottom: 20px;
+}
+
+.mb-50 {
+  margin-bottom: 50px;
 }
 
 .error {

@@ -8,7 +8,7 @@
 <div class="container-fluid">
     <div class="page-view">
         <app-datatable [dataKey]="dataKey" [data]="data" [columns]="columns" [loading]="loading" [title]="'Inventory'"
-            [isRowGroup]="isRowGroup" [isExport]=true [isShowDisplaySettings]=true [isRowAction]="false"
+            [isRowGroup]="isRowGroup" [isExport]=true [isShowDisplaySettings]=true [isRowAction]="isRowAction"
             [isRowSelect]="isRowSelect" [module]="'inventory'" [actions]="actions" [isColumnFilter]="true"
             (actionEmitter)="actionEmitter($event.action, $event.data)" [statusList]="statusList"
             (statusEmitter)="statusEmitter($event.value)" 

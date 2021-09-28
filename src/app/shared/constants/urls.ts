@@ -34,5 +34,9 @@ export const URLS = {
     },
     PRODUCTION: {
         LIST: `${BASE_URL}/production/list`
+    },
+    TRANSACTION: {
+        SALE: `${BASE_URL}/transaction/actualSale`,
+        INSTALLATION: `${BASE_URL}/installation`
     }
 }
